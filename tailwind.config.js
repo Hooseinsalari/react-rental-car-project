@@ -72,8 +72,8 @@ export default {
         },
       },
       backgroundImage: {
-        "first-ad": "url('./public/images/image-7.png')",
-        "second-ad": "url('./public/images/image-8.png')",
+        "first-ad": "url('./src/assets/images/image-7.png')",
+        "second-ad": "url('./src/assets/images/image-8.png')",
       },
     },
   },

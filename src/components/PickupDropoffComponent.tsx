@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Calendar from "react-widgets/Calendar";
 import TimeInput from "react-widgets/TimeInput";
 import DropdownList from "react-widgets/DropdownList";
+// import Dropdown from "react-widgets/DropdownList";
 import "react-widgets/styles.css";
 
 // hooks
@@ -21,8 +22,8 @@ import {
 import { formatDate, formatTime } from "../helper/functions";
 
 // svg
-import Swap from "../../public/swap.svg";
-import Arrow from "../../public/arrow-down.svg";
+import Swap from "../assets/svg/swap.svg";
+import Arrow from "../assets/svg/arrow-down.svg";
 
 // constant
 import { citiesInIran } from "../constant";
@@ -94,6 +95,8 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
           </h3>
           <h4
             id="location"
+            role="button"
+            tabIndex={0}
             onClick={() => setShowLocation((prevState) => !prevState)}
             className="text-secondinary-300 text-xs font-normal flex items-center lg:text-sm"
           >
@@ -112,9 +115,11 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
               className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px]`}
             >
               <DropdownList
-                defaultValue="Select"
+                defaultValue="Search"
                 onChange={(value) => setPickUp({ ...pickUp, location: value })}
                 data={citiesInIran}
+                open={true}
+                selectIcon={false}
               />
             </div>
           )}
@@ -126,7 +131,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
             onClick={() => setShowCalendar((prevState) => !prevState)}
             className="text-secondinary-300 text-xs font-normal flex items-center lg:text-sm"
           >
-            <span>{pickUp.date || "select..."}</span>
+            {pickUp.date || "select..."}
             <img
               src={Arrow}
               alt="arrow"
@@ -156,7 +161,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
             onClick={() => setShowTime((prevState) => !prevState)}
             className="text-secondinary-300 text-xs font-normal flex items-center lg:text-sm"
           >
-            <span>{pickUp.time || "select..."}</span>
+            {pickUp.time || "select..."}
             <img
               src={Arrow}
               alt="arrow"
@@ -232,11 +237,13 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
               className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px]`}
             >
               <DropdownList
-                defaultValue="Select"
+                defaultValue="Search"
                 onChange={(value) =>
                   setDropOff({ ...dropOff, location: value })
                 }
                 data={citiesInIran}
+                open={true}
+                selectIcon={false}
               />
             </div>
           )}
@@ -248,7 +255,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
             onClick={() => setShowCalendar((prevState) => !prevState)}
             className="text-secondinary-300 text-xs font-normal flex items-center lg:text-sm"
           >
-            <span>{dropOff.date || "select..."}</span>
+            {dropOff.date || "select..."}
             <img
               src={Arrow}
               alt="arrow"
@@ -278,7 +285,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
             onClick={() => setShowTime((prevState) => !prevState)}
             className="text-secondinary-300 text-xs font-normal flex items-center lg:text-sm"
           >
-            <span>{dropOff.time || "select..."}</span>
+            {dropOff.time || "select..."}
             <img
               src={Arrow}
               alt="arrow"

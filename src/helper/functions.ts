@@ -9,8 +9,6 @@ function formatDate(selectedDate: Date) {
 }
 
 function formatTime(selectedTime: any) {
-    console.log(selectedTime);
-    
   const time = selectedTime.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
