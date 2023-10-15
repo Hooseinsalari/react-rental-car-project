@@ -74,6 +74,10 @@ export default {
       backgroundImage: {
         "first-ad": "url('./src/assets/images/image-7.png')",
         "second-ad": "url('./src/assets/images/image-8.png')",
+        "car-shadow": "url('./src/assets/svg/car-shadow.svg')",
+      },
+      screens: {
+        xs: "425px",
       },
     },
   },
