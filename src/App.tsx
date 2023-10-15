@@ -1,8 +1,10 @@
+import { Routes, Route } from "react-router-dom";
+
+// components
 import Navbar from "./components/Navbar";
 
+// pages
 import HomePage from "./pages/HomePage";
-
-import {Routes, Route} from "react-router-dom"
 
 function App() {
   return (
