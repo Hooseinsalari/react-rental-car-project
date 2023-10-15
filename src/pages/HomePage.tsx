@@ -2,6 +2,7 @@
 import AdsSection from "../components/AdsSection";
 import PickupDropoffComponent from "../components/PickupDropoffComponent";
 import PopularCar from "../components/PopularCar";
+import RecomendationCar from "../components/RecomendationCar";
 
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
       <AdsSection />
       <PickupDropoffComponent />
       <PopularCar />
+      <RecomendationCar />
     </div>
   );
 };
