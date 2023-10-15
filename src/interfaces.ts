@@ -32,3 +32,11 @@ export interface CarInterface {
   typeCar: string;
   _id: string;
 }
+
+export interface TagListsProps {
+  title: string;
+  li_1: string;
+  li_2: string;
+  li_3: string;
+  li_4: string;
+}
