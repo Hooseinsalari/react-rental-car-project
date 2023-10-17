@@ -49,11 +49,11 @@ const PickupDropoffComponent = () => {
   };
 
   return (
-    <div className="mt-6 flex flex-col md:flex-row md:justify-between">
+    <div className="mt-6 flex flex-col lg:flex-row lg:justify-between">
       <PickUpComponent pickUp={pickUp} setPickUp={setPickUp} />
       <div
         onClick={swapHandler}
-        className="cursor-pointer w-14 h-14 my-4 md:my-auto mx-auto md:mx-4 rounded-lg bg-primary-500 flex items-center justify-center hover:shadow-md duration-200"
+        className="cursor-pointer w-14 h-14 my-4 lg:my-auto mx-auto lg:mx-4 rounded-lg bg-primary-500 flex items-center justify-center hover:shadow-md duration-200"
       >
         <img src={Swap} alt="swap" />
       </div>
@@ -81,7 +81,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
   useOutsideClick(locationRef, "location", () => setShowLocation(false));
 
   return (
-    <div className="bg-white p-4 w-full md:w-1/2 rounded-lg md:flex-grow">
+    <div className="bg-white p-4 w-full lg:w-1/2 rounded-lg lg:flex-grow">
       <div className="flex items-center">
         <Mark isPick={true} />
         <h2 className="text-secondinary-500 font-semibold ml-2 lg:text-lg">
@@ -89,7 +89,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
         </h2>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <div className="md:w-1/3 cursor-pointer relative">
+        <div className="cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">
             Location
           </h3>
@@ -124,7 +124,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:w-1/3 md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Date</h3>
           <h4
             id="calendar"
@@ -154,7 +154,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:w-1/3 md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Time</h3>
           <h4
             id="time"
@@ -205,7 +205,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
   useOutsideClick(locationRef, "location", () => setShowLocation(false));
 
   return (
-    <div className="bg-white p-4 w-full md:w-1/2 rounded-lg md:flex-grow">
+    <div className="bg-white p-4 w-full lg:w-1/2 rounded-lg lg:flex-grow">
       <div className="flex items-center">
         <Mark isPick={false} />
         <h2 className="text-secondinary-500 font-semibold ml-2 lg:text-lg">
@@ -213,7 +213,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
         </h2>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <div className="md:w-1/3 cursor-pointer relative">
+        <div className="cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">
             Location
           </h3>
@@ -248,7 +248,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:w-1/3 md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Date</h3>
           <h4
             id="calendar"
@@ -278,7 +278,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:w-1/3 md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Time</h3>
           <h4
             id="time"
