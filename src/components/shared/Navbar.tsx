@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
 
+// redux
+import { useDispatch } from "react-redux";
+import { isShow } from "../../features/showFilter/showFilterSlice";
+
+// svg
+import FilterIcon from "../../assets/svg/filter-icon.svg";
+import SearchIcon from "../../assets/svg/search-icon.svg";
+
 const Navbar = () => {
   return (
     <div className="flex flex-col md:flex-row bg-white md:items-center md:border-b md:border-[#C3D4E966] px-6 md:px-16 py-4">
@@ -44,95 +52,24 @@ const Navbar = () => {
 export default Navbar;
 
 function SearchBar() {
+  const dispatch = useDispatch();
+
   return (
     <div className="flex items-center md:mr-auto md:w-1/2 gap-4 md:border md:border-[#C3D4E966] md:rounded-3xl">
       <div className="flex items-center border border-[#C3D4E966] rounded-[10px] p-3 w-full md:border-none">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M22 22L20 20"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <img className="w-6 h-6" src={SearchIcon} alt="search" />
         <input
           className="outline-none ml-3 w-full font-medium"
           placeholder="Search something here"
           type="text"
         />
       </div>
-      <div className="border border-[#C3D4E966] rounded-[10px] p-3 md:border-none">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M22 6.5H16"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M6 6.5H2"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M10 10C11.933 10 13.5 8.433 13.5 6.5C13.5 4.567 11.933 3 10 3C8.067 3 6.5 4.567 6.5 6.5C6.5 8.433 8.067 10 10 10Z"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M22 17.5H18"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M8 17.5H2"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M14 21C15.933 21 17.5 19.433 17.5 17.5C17.5 15.567 15.933 14 14 14C12.067 14 10.5 15.567 10.5 17.5C10.5 19.433 12.067 21 14 21Z"
-            stroke="#596780"
-            strokeWidth="1.5"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
+      <button
+        onClick={() => dispatch(isShow())}
+        className="border border-[#C3D4E966] rounded-[10px] p-3 md:hidden"
+      >
+        <img className="w-8 h-6 " src={FilterIcon} alt="filter" />
+      </button>
     </div>
   );
 }

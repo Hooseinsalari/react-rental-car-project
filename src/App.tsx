@@ -3,10 +3,11 @@ import { Routes, Route } from "react-router-dom";
 
 // components
 import Navbar from "./components/shared/Navbar";
+import Footer from "./components/shared/Footer";
 
 // pages
 import HomePage from "./pages/HomePage";
-import Footer from "./components/shared/Footer";
+import VehiclesPage from "./pages/VehiclesPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="vehicles" element={<VehiclesPage />} />
       </Routes>
       <Footer />
     </div>
