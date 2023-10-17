@@ -59,9 +59,8 @@ function SearchBar() {
       <div className="flex items-center border border-[#C3D4E966] rounded-[10px] p-3 w-full md:border-none">
         <img className="w-6 h-6" src={SearchIcon} alt="search" />
         <input
-          className="outline-none ml-3 w-full font-medium"
+          className="outline-none ml-3 w-full font-medium border-none p-0 focus:ring-0"
           placeholder="Search something here"
-          type="text"
         />
       </div>
       <button

@@ -20,3 +20,19 @@ export const citiesInIran: string[] = [
   "Bandar Abbas",
   "Zanjan",
 ];
+
+export const carTypes: string[] = [
+  "Sport",
+  "SUV",
+  "MPV",
+  "Sedan",
+  "Coupe",
+  "Hatchback",
+];
+
+export const carCapasity: string[] = [
+  "2 Person",
+  "4 Person",
+  "6 Person",
+  "8 Person",
+];
