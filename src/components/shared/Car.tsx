@@ -7,7 +7,6 @@ import Gear from "../../assets/svg/gear.svg";
 import Capacity from "../../assets/svg/capacity.svg";
 
 const Car = ({ car }: { car: CarInterface }) => {
-  console.log(car);
   const { attributes } = car;
 
   return (
