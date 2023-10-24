@@ -10,7 +10,7 @@ import Car from "./shared/Car";
 import { CarInterface } from "../interfaces";
 
 async function fetchAllData() {
-  const response = await fetch("http://localhost:5000/api/product/seed");
+  const response = await fetch("https://morent-4li1.onrender.com/api/cars?populate=*");
   const data = response.json();
   return data;
 }
@@ -24,8 +24,6 @@ const PopularCar = () => {
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-
-  const { createdProducts: cars } = data;
 
   return (
     <div className="mt-10">
@@ -41,8 +39,8 @@ const PopularCar = () => {
         </Link>
       </div>
       <div className="mt-5 flex items-center justify-center flex-wrap gap-x-6">
-        {cars.slice(0, 4).map((car: CarInterface) => (
-            <Car car={car} key={car._id} />
+        {data?.data.slice(0, 4).map((car: CarInterface) => (
+            <Car car={car} key={car.id} />
         ))}
       </div>
     </div>

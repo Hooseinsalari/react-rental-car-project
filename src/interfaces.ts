@@ -19,18 +19,33 @@ export interface MarkProps {
 }
 
 export interface CarInterface {
-  capacity: number;
-  description: string;
-  discount: number;
-  gasoline: string;
-  image: string;
-  name: string;
-  price: number;
-  reviewers: number;
-  score: number;
-  steering: string;
-  typeCar: string;
-  _id: string;
+  id: number;
+  attributes: {
+    name: string;
+    type: string;
+    gasoline: number;
+    steering: string;
+    capacity: number;
+    price: number;
+    image: {
+      data: {
+        id: number;
+        attributes: {
+          name: string;
+          formats: {
+            small: {
+              url: string;
+            };
+            thumbnail: {
+              url: string;
+            };
+          };
+          url: string;
+        };
+      };
+    };
+    gallery: any | null;
+  };
 }
 
 export interface TagListsProps {
@@ -39,4 +54,15 @@ export interface TagListsProps {
   li_2: string;
   li_3: string;
   li_4: string;
+}
+
+export interface FilterQuery {
+  type: string[];
+  capacity: string[];
+  price: number;
+}
+
+export interface FilterBarProps {
+  filterQuery: FilterQuery;
+  setFilterQuery: React.Dispatch<React.SetStateAction<FilterQuery>>;
 }

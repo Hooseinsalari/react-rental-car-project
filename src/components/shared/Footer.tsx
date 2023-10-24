@@ -3,7 +3,7 @@ import { TagListsProps } from "../../interfaces";
 
 const Footer = () => {
   return (
-    <div className="bg-white mt-12 px-6 md:px-16 py-10">
+    <div className="bg-white px-6 md:px-16 py-10">
       <div className="flex flex-col gap-x-10 md:flex-row items-start justify-between w-full">
         <div>
           <Link
