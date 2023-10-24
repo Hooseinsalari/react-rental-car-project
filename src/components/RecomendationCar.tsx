@@ -30,7 +30,7 @@ const RecomendationCar = () => {
       <h2 className="text-secondinary-300 font-semibold text-sm md:text-base">
         Recomendation Car
       </h2>
-      <div className="mt-5 flex items-center justify-center flex-wrap gap-x-6">
+      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3 xl:grid-cols-4">
         {data?.data.slice(0, 8).map((car: CarInterface) => (
           <Car car={car} key={car.id} />
         ))}

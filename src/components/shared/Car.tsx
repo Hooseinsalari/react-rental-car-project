@@ -8,10 +8,10 @@ import Capacity from "../../assets/svg/capacity.svg";
 
 const Car = ({ car }: { car: CarInterface }) => {
   console.log(car);
-  const {attributes} = car
-  
+  const { attributes } = car;
+
   return (
-    <div className="bg-white rounded-lg px-3 py-4 mt-5 w-full md:w-[17rem]">
+    <div className="bg-white rounded-lg px-3 py-4 mt-5 w-full">
       <div className="mb-4">
         <h2 className="text-secondinary-500 font-semibold text-base">
           {attributes.name}
@@ -20,24 +20,30 @@ const Car = ({ car }: { car: CarInterface }) => {
       </div>
 
       <div className="flex items-center justify-between sm:flex-col sm:mt-10">
-        <img src={attributes.image.data.attributes.formats.small.url} alt="car" className="w-[10rem] mr-2 xs:w-7/12 md:w-[75%] md:h-[6rem] h-auto" />
+        <div className="w-2/3 sm:w-full mr-2 h-32 flex items-center justify-center">
+          <img
+            src={attributes.image.data.attributes.formats.small.url}
+            alt="car"
+            className="w-full h-auto object-contain"
+          />
+        </div>
 
-        <div className="sm:flex sm:mt-12 sm:gap-x-5 md:w-full md:justify-between md:items-center">
+        <div className="sm:flex sm:mt-12 sm:w-full justify-between md:items-center">
           <div className="flex items-center mb-4">
             <img className="mr-1 w-4 h-4" src={GasStation} alt="gas station" />
-            <span className="text-secondinary-300 font-medium text-xs xs:text-sm">
+            <span className="text-secondinary-300 font-medium text-xs">
               {attributes.gasoline}L
             </span>
           </div>
           <div className="flex items-center mb-4">
             <img className="mr-1 w-4 h-4" src={Gear} alt="gear" />
-            <span className="text-secondinary-300 font-medium text-xs xs:text-sm">
+            <span className="text-secondinary-300 font-medium text-xs">
               {attributes.steering}
             </span>
           </div>
           <div className="flex items-center mb-4">
             <img className="mr-1 w-4 h-4" src={Capacity} alt="capacity" />
-            <span className="text-secondinary-300 font-medium text-xs xs:text-sm">
+            <span className="text-secondinary-300 font-medium text-xs">
               {attributes.capacity} People
             </span>
           </div>
