@@ -1,38 +1,94 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+// useQuery
 import { useQuery } from "@tanstack/react-query";
 
 // components
 import PickupDropoffComponent from "../components/PickupDropoffComponent";
 import Car from "../components/shared/Car";
+import FilterBar from "../components/FilterBar";
 
 // interfaces
 import { CarInterface, FilterQuery } from "../interfaces";
-import FilterBar from "../components/FilterBar";
 
-async function fetchAllData() {
+// react router
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+
+// helper
+import { generateParams } from "../helper/functions";
+
+// ** fetcher
+async function fetchAllData(price: string, type: string[], capacity: string[]) {
   const response = await fetch(
-    "https://morent-4li1.onrender.com/api/cars?populate=*"
+    `https://morent-4li1.onrender.com/api/cars?populate=*&filters[price][$gte]=${
+      price || ""
+    }&${generateParams(type, "type")}&${generateParams(capacity, "capacity")}`
   );
   const data = response.json();
   return data;
 }
 
 const VehiclesPage = () => {
-  const [filterQuery, setFilterQuery] = useState<FilterQuery>({
-    type: [],
-    capacity: [],
-    price: 50,
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const type = JSON.parse(searchParams.get("type")!);
+  const capacity = JSON.parse(searchParams.get("capacity")!);
+  const price = searchParams.get("price");
+
+  // ** state
+  // save this state in sessionStorage because after apply filters, page refreshes and all checkboxes checked value will be false
+  const [filterQuery, setFilterQuery] = useState<FilterQuery>(() => {
+    const storedFilterQuery = sessionStorage.getItem("filterQuery");
+    return storedFilterQuery
+      ? JSON.parse(storedFilterQuery)
+      : { type: [], capacity: [], price: 50 };
   });
 
+  // ** useQuery
   const { data, isLoading } = useQuery({
-    queryKey: ["cars"],
-    queryFn: fetchAllData,
+    queryKey: ["cars", price, type, capacity],
+    queryFn: () => fetchAllData(price!, type!, capacity!),
   });
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  // ** useEffects
+  useEffect(() => {
+    sessionStorage.setItem("filterQuery", JSON.stringify(filterQuery));
+  }, [filterQuery]);
+
+  useEffect(() => {
+    const encodedParams = createSearchParams({
+      type: JSON.stringify(filterQuery.type),
+      price: JSON.stringify(filterQuery.price),
+      capacity: JSON.stringify(filterQuery.capacity),
+    });
+
+    navigate({
+      pathname: "/vehicles",
+      search: encodedParams.toString(),
+    });
+  }, [filterQuery]);
+
+  useEffect(() => {
+    const handleBackButton = (event: PopStateEvent) => {
+      event.preventDefault();
+      navigate("/vehicles");
+      setFilterQuery({ type: [], capacity: [], price: 50 });
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [navigate]);
+
+  // if (isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
     <div className="md:flex md:justify-between md:gap-x-10 min-h-screen">

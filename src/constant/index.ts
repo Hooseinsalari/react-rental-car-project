@@ -31,8 +31,8 @@ export const carTypes: string[] = [
 ];
 
 export const carCapasity: string[] = [
-  "2 Person",
-  "4 Person",
-  "6 Person",
-  "8 Person",
+  "2",
+  "4",
+  "6",
+  "8",
 ];

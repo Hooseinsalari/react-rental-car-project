@@ -39,6 +39,7 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
 
   const dispatch = useDispatch();
 
+  const [rangeInput, setRangeInput] = useState<number>(filterQuery.price || 50);
   const [isOpen, setIsOpen] = useState<{ first: boolean; second: boolean }>({
     first: true,
     second: false,
@@ -71,7 +72,12 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
   };
 
   const rangeInputHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setFilterQuery({ ...filterQuery, price: +e.currentTarget.value });
+    const value = +e.currentTarget.value;
+    setRangeInput(value);
+  };
+
+  const mouseUpHandler = () => {
+    setFilterQuery({ ...filterQuery, price: rangeInput });
   };
 
   return (
@@ -115,6 +121,7 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
                   onChange={typeCheckBoxHandler}
                   value={i}
                   name="type"
+                  checked={filterQuery.type.includes(i)}
                 />
                 <label htmlFor={i} className="font-medium text-secondinary-400">
                   {i}
@@ -151,6 +158,7 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
                   onChange={capacityCheckBoxHandler}
                   value={i}
                   name="capacity"
+                  checked={filterQuery.capacity.includes(i)}
                 />
                 <label htmlFor={i} className="font-medium text-secondinary-400">
                   {i}
@@ -164,14 +172,15 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
           <input
             className="w-full bg-secondinary-300 outline-none"
             name="price"
-            value={filterQuery.price}
+            value={rangeInput}
             min={20}
             max={500}
             onChange={rangeInputHandler}
             type="range"
+            onMouseUp={mouseUpHandler}
           />
           <h3 className="font-medium text-secondinary-400">
-            Max ${filterQuery.price.toFixed(2)}
+            Max ${rangeInput.toFixed(2)}
           </h3>
         </div>
       </div>
@@ -186,6 +195,8 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
 }
 
 function DesktopFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
+  const [rangeInput, setRangeInput] = useState<number>(filterQuery.price || 50);
+
   // onChanges
   const typeCheckBoxHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, checked } = e.currentTarget;
@@ -213,7 +224,12 @@ function DesktopFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
   };
 
   const rangeInputHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setFilterQuery({ ...filterQuery, price: +e.currentTarget.value });
+    const value = +e.currentTarget.value;
+    setRangeInput(value);
+  };
+
+  const mouseUpHandler = () => {
+    setFilterQuery({ ...filterQuery, price: rangeInput });
   };
 
   return (
@@ -235,6 +251,7 @@ function DesktopFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
                   onChange={typeCheckBoxHandler}
                   value={i}
                   name="type"
+                  checked={filterQuery.type.includes(i)}
                 />
                 <label className="text-sm lg:text-base font-medium text-secondinary-400">
                   {i}
@@ -259,9 +276,10 @@ function DesktopFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
                   onChange={capacityCheckBoxHandler}
                   value={i}
                   name="capacity"
+                  checked={filterQuery.capacity.includes(i)}
                 />
                 <label className="text-sm lg:text-base font-medium text-secondinary-400">
-                  {i}
+                  {i} Person
                 </label>
               </li>
             ))}
@@ -273,15 +291,16 @@ function DesktopFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
           </h3>
           <input
             name="price"
-            value={filterQuery.price}
+            value={rangeInput}
             min={20}
             max={500}
             onChange={rangeInputHandler}
+            onMouseUp={mouseUpHandler}
             type="range"
             className="w-full bg-secondinary-300 outline-none"
           />
           <h3 className="font-medium text-secondinary-400 text-sm lg:text-base">
-            Max ${filterQuery.price.toFixed(2)}
+            Max ${rangeInput.toFixed(2)}
           </h3>
         </div>
       </div>

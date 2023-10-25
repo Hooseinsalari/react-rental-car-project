@@ -18,4 +18,12 @@ function formatTime(selectedTime: any) {
   return `${time}`;
 }
 
-export { formatDate, formatTime };
+function generateParams(value: string[], query: string) {
+  let params = value
+    ?.map((q) => `filters[${query}][$containsi]=${q}`)
+    .join("&");
+
+  return params;
+}
+
+export { formatDate, formatTime, generateParams };
