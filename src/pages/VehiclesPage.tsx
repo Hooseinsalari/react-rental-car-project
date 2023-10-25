@@ -67,25 +67,16 @@ const VehiclesPage = () => {
       capacity: JSON.stringify(filterQuery.capacity),
     });
 
-    navigate({
-      pathname: "/vehicles",
-      search: encodedParams.toString(),
-    });
+    navigate(
+      {
+        pathname: "/vehicles",
+        search: encodedParams.toString(),
+      },
+      { replace: true }
+    );
+
+    window.scrollTo(0, 0);
   }, [filterQuery]);
-
-  useEffect(() => {
-    const handleBackButton = (event: PopStateEvent) => {
-      event.preventDefault();
-      navigate("/vehicles");
-      setFilterQuery({ type: [], capacity: [], price: 50 });
-    };
-
-    window.addEventListener("popstate", handleBackButton);
-
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);
-    };
-  }, [navigate]);
 
   return (
     <div className="md:flex md:justify-between md:gap-x-10 min-h-screen">
@@ -93,9 +84,13 @@ const VehiclesPage = () => {
       <div className="px-6 md:pr-10 md:pl-0 py-8 md:w-3/4 lg:w-4/5 mb-16">
         <PickupDropoffComponent />
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3 xl:grid-cols-4">
-          {!isLoading && data ? data?.data.map((car: CarInterface) => (
-            <Car car={car} key={car.id} />
-          )) : <CarSkeleton cards={8} />}
+          {!isLoading && data ? (
+            data?.data.map((car: CarInterface) => (
+              <Car car={car} key={car.id} />
+            ))
+          ) : (
+            <CarSkeleton cards={8} />
+          )}
         </div>
       </div>
     </div>
