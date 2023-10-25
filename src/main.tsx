@@ -3,6 +3,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 // redux
 import { Provider } from "react-redux";
 import store from "./app/store.ts";

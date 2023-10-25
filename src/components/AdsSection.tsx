@@ -11,7 +11,7 @@ const AdsSection = () => {
           low price.
         </p>
         <Link
-          to="/"
+          to="/vehicles"
           className="bg-primary-500 px-4 py-2 rounded-md text-sm md:text-base md:px-6 md:py-4"
         >
           Rental Car
@@ -26,7 +26,7 @@ const AdsSection = () => {
           facilities.
         </p>
         <Link
-          to="/"
+          to="/vehicles"
           className="bg-information-500 px-4 py-2 rounded-md text-sm md:text-base md:px-6 md:py-4"
         >
           Rental Car

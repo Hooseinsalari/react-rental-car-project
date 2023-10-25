@@ -20,6 +20,7 @@ import {
 
 // helper
 import { generateParams } from "../helper/functions";
+import CarSkeleton from "../skeleton/CarSkeleton";
 
 // ** fetcher
 async function fetchAllData(price: string, type: string[], capacity: string[]) {
@@ -86,19 +87,15 @@ const VehiclesPage = () => {
     };
   }, [navigate]);
 
-  // if (isLoading) {
-  //   return <h1>Loading...</h1>;
-  // }
-
   return (
     <div className="md:flex md:justify-between md:gap-x-10 min-h-screen">
       <FilterBar filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
       <div className="px-6 md:pr-10 md:pl-0 py-8 md:w-3/4 lg:w-4/5 mb-16">
         <PickupDropoffComponent />
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3 xl:grid-cols-4">
-          {data?.data.map((car: CarInterface) => (
+          {!isLoading && data ? data?.data.map((car: CarInterface) => (
             <Car car={car} key={car.id} />
-          ))}
+          )) : <CarSkeleton cards={8} />}
         </div>
       </div>
     </div>
