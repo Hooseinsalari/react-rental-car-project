@@ -5,6 +5,7 @@ import { CarInterface } from "../../interfaces";
 import GasStation from "../../assets/svg/gas-station.svg";
 import Gear from "../../assets/svg/gear.svg";
 import Capacity from "../../assets/svg/capacity.svg";
+import { Link } from "react-router-dom";
 
 const Car = ({ car }: { car: CarInterface }) => {
   const { attributes } = car;
@@ -18,7 +19,7 @@ const Car = ({ car }: { car: CarInterface }) => {
         <h3 className="text-secondinary-300 text-sm">{attributes.type}</h3>
       </div>
 
-      <div className="flex items-center justify-between sm:flex-col sm:mt-10">
+      <Link to={`/detailCar/${car.id}`} className="flex items-center justify-between sm:flex-col sm:mt-10">
         <div className="w-2/3 sm:w-full mr-2 h-32 flex items-center justify-center">
           <img
             src={attributes.image.data.attributes.formats.small.url}
@@ -47,7 +48,7 @@ const Car = ({ car }: { car: CarInterface }) => {
             </span>
           </div>
         </div>
-      </div>
+      </Link>
 
       <div className="flex items-center justify-between mt-5 sm:mt-3">
         <h3 className="text-secondinary-500 text-base font-semibold">

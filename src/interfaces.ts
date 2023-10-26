@@ -44,7 +44,55 @@ export interface CarInterface {
         };
       };
     };
-    gallery: any | null;
+    gallery: {
+      data: [
+        {
+          id: number;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              medium: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        },
+        {
+          id: 13;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        },
+        {
+          id: 12;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        }
+      ];
+    };
   };
 }
 
@@ -65,4 +113,85 @@ export interface FilterQuery {
 export interface FilterBarProps {
   filterQuery: FilterQuery;
   setFilterQuery: React.Dispatch<React.SetStateAction<FilterQuery>>;
+}
+
+export interface DetailsCar {
+  id: number;
+  data: {
+    id: number;
+    attributes: {
+      name: string;
+      type: string;
+      gasoline: number;
+      steering: string;
+      capacity: number;
+      price: number;
+      image: {
+        data: {
+          id: number;
+          attributes: {
+            name: string;
+            formats: {
+              small: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        };
+      };
+      gallery: {
+        data: [
+          {
+            id: number;
+            attributes: {
+              formats: {
+                small: {
+                  url: string;
+                };
+                medium: {
+                  url: string;
+                };
+                thumbnail: {
+                  url: string;
+                };
+              };
+              url: string;
+            };
+          },
+          {
+            id: 13;
+            attributes: {
+              formats: {
+                small: {
+                  url: string;
+                };
+                thumbnail: {
+                  url: string;
+                };
+              };
+              url: string;
+            };
+          },
+          {
+            id: 12;
+            attributes: {
+              formats: {
+                small: {
+                  url: string;
+                };
+                thumbnail: {
+                  url: string;
+                };
+              };
+              url: string;
+            };
+          }
+        ];
+      };
+    };
+  };
 }
