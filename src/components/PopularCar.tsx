@@ -37,7 +37,7 @@ const PopularCar = () => {
       </div>
       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3 xl:grid-cols-4">
         
-        {!isLoading && data ? data?.data.slice(0, 4).map((car: CarInterface) => (
+        {!isLoading && data ? data?.data?.slice(0, 4).map((car: CarInterface) => (
             <Car car={car} key={car.id} />
         )) : <CarSkeleton cards={4} />}
       </div>
