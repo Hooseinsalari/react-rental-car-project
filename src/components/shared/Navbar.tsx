@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
 // context
-import { useIsShow } from "../../context/showFilterContextProvider";
 
 // svg
 import FilterIcon from "../../assets/svg/filter-icon.svg";
 import SearchIcon from "../../assets/svg/search-icon.svg";
+import { useIsShow } from "../../context/ShowFilterContextProvider";
 
 const Navbar = () => {
   return (

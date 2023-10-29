@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // context
-import { useIsShow } from "../context/showFilterContextProvider";
+import { useIsShow } from "../context/ShowFilterContextProvider";
 
 // svg
 import Arrow from "../assets/svg/arrow-down.svg";

@@ -10,7 +10,7 @@ import "yet-another-react-lightbox/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // context
-import ShowFilterContextProvider from "./context/showFilterContextProvider.tsx";
+import ShowFilterContextProvider from "./context/ShowFilterContextProvider.tsx";
 
 const queryClient = new QueryClient();
 
