@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 // toast
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 
 // components
 import Navbar from "./components/shared/Navbar";

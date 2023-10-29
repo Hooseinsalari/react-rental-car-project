@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../app/store";
-import { isShow } from "../features/showFilter/showFilterSlice";
+// context
+import { useIsShow } from "../context/showFilterContextProvider";
 
 // svg
 import Arrow from "../assets/svg/arrow-down.svg";
@@ -33,11 +31,7 @@ const FilterBar = ({ filterQuery, setFilterQuery }: FilterBarProps) => {
 export default FilterBar;
 
 function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
-  const isShowFilter = useSelector(
-    (state: RootState) => state.showFilter.isShow
-  );
-
-  const dispatch = useDispatch();
+  const { isShow, setIsShow } = useIsShow();
 
   const [rangeInput, setRangeInput] = useState<number>(filterQuery.price || 50);
   const [isOpen, setIsOpen] = useState<{ first: boolean; second: boolean }>({
@@ -84,12 +78,12 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
     <div className="md:hidden">
       <div
         className={`fixed bg-white w-2/3 right-0 top-0 min-h-screen z-50 p-4 duration-500 ease-in-out ${
-          isShowFilter ? "translate-x-0" : "translate-x-[1000px]"
+          isShow ? "translate-x-0" : "translate-x-[1000px]"
         }`}
       >
         <div className="flex items-center justify-between mb-8">
           <h3 className="font-semibold text-lg">Filters</h3>
-          <button onClick={() => dispatch(isShow())}>
+          <button onClick={() => setIsShow(!isShow)}>
             <img src={Close} className="w-6 h-6 cursor-pointer" alt="close" />
           </button>
         </div>
@@ -187,7 +181,7 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
 
       <div
         className={`fixed z-40 inset-0 bg-black opacity-50 pointer-events-auto ${
-          isShowFilter ? "block" : "hidden"
+          isShow ? "block" : "hidden"
         }`}
       ></div>
     </div>

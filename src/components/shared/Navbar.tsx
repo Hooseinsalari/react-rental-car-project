@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 
-// redux
-import { useDispatch } from "react-redux";
-import { isShow } from "../../features/showFilter/showFilterSlice";
+// context
+import { useIsShow } from "../../context/showFilterContextProvider";
 
 // svg
 import FilterIcon from "../../assets/svg/filter-icon.svg";
@@ -52,7 +51,7 @@ const Navbar = () => {
 export default Navbar;
 
 function SearchBar() {
-  const dispatch = useDispatch();
+  const { setIsShow } = useIsShow();
 
   return (
     <div className="flex items-center md:mr-auto md:w-1/2 gap-4 md:border md:border-[#C3D4E966] md:rounded-3xl">
@@ -64,7 +63,7 @@ function SearchBar() {
         />
       </div>
       <button
-        onClick={() => dispatch(isShow())}
+        onClick={() => setIsShow((prevState) => !prevState)}
         className="border border-[#C3D4E966] rounded-[10px] p-3 md:hidden"
       >
         <img className="w-8 h-6 " src={FilterIcon} alt="filter" />
