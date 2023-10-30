@@ -202,3 +202,8 @@ export interface FormValues {
   password: string;
   confirmPassword: string;
 }
+
+export interface LoginFormValues {
+  identifier: string;
+  password: string;
+}

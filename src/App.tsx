@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 import VehiclesPage from "./pages/VehiclesPage";
 import DetailCarPage from "./pages/DetailCarPage";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="detailCar/:id" element={<DetailCarPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Routes>
       <Footer />
       <Toaster />
