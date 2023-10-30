@@ -21,8 +21,7 @@ import { FormValues } from "../interfaces";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const RegisterPage = () => {
-  const { userData, setUserData } = useAuth();
-  console.log({ userData, setUserData });
+  const { setUserData } = useAuth();
 
   // ** navigate
   const navigate = useNavigate();

@@ -21,7 +21,7 @@ import { LoginFormValues } from "../interfaces";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const LoginPage = () => {
-  const { userData, setUserData } = useAuth();
+  const { setUserData } = useAuth();
 
   // ** navigate
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>();
-  
+
   const registerOptions = {
     identifier: {
       required: "Name or Email is required",
@@ -92,7 +92,7 @@ const LoginPage = () => {
             name="identifier"
             className="rounded-lg border-none focus:ring-0 bg-[#F6F7F9] font-medium py-3"
             id="identifier"
-            placeholder="Your email"
+            placeholder="Your name or email"
           />
           <span className="text-red-500 text-sm font-bold w-fit px-1 py-[0.1rem] mt-1 rounded-lg">
             {errors?.identifier && errors?.identifier?.message}
