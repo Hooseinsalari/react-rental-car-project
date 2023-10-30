@@ -1,6 +1,9 @@
 // react query
 import { useMutation } from "@tanstack/react-query";
 
+// context
+import { useAuth } from "../context/AuthContextProvider";
+
 // axios
 import axios from "axios";
 
@@ -18,6 +21,9 @@ import { FormValues } from "../interfaces";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const RegisterPage = () => {
+  const { userData, setUserData } = useAuth();
+  console.log({ userData, setUserData });
+
   // ** navigate
   const navigate = useNavigate();
 
@@ -71,6 +77,7 @@ const RegisterPage = () => {
         }
       ),
     onSuccess(data) {
+      setUserData(data.data);
       toast.success(`Wellcome to morent ${data.data.user.username}`);
       navigate("/", { replace: true });
     },
@@ -170,8 +177,7 @@ const RegisterPage = () => {
             className="bg-primary-500 text-base text-white px-4 py-3 rounded-[4px] w-full font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
             disabled={mutation.isLoading}
           >
-      
-            {mutation.isLoading ? <LoadingSpinner /> : 'Submit'}
+            {mutation.isLoading ? <LoadingSpinner /> : "Submit"}
           </button>
           <Link
             className="text-sm font-medium text-secondinary-300 mt-2"
