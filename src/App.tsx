@@ -14,6 +14,9 @@ import DetailCarPage from "./pages/DetailCarPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 
+// helper
+import ScrollToTop from "./helper/ScrollToTop";
+
 function App() {
   return (
     <div className="bg-[#F6F7F9;] min-h-screen">
@@ -27,6 +30,7 @@ function App() {
       </Routes>
       <Footer />
       <Toaster />
+      <ScrollToTop />
     </div>
   );
 }
