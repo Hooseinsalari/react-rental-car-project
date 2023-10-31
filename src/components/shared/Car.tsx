@@ -1,3 +1,6 @@
+// context
+import { useRentCar } from "../../context/RentCarContextProvider";
+
 // interface
 import { CarInterface } from "../../interfaces";
 
@@ -9,6 +12,11 @@ import { Link } from "react-router-dom";
 
 const Car = ({ car }: { car: CarInterface }) => {
   const { attributes } = car;
+  const { dispatch } = useRentCar();
+
+  const rentalHandler = () => {
+    dispatch({ type: "ADD_TO_CART", payload: car });
+  };
 
   return (
     <div className="bg-white rounded-lg px-3 py-4 mt-5 w-full">
@@ -19,7 +27,10 @@ const Car = ({ car }: { car: CarInterface }) => {
         <h3 className="text-secondinary-300 text-sm">{attributes.type}</h3>
       </div>
 
-      <Link to={`/detailCar/${car.id}`} className="flex items-center justify-between sm:flex-col sm:mt-10">
+      <Link
+        to={`/detailCar/${car.id}`}
+        className="flex items-center justify-between sm:flex-col sm:mt-10"
+      >
         <div className="w-2/3 sm:w-full mr-2 h-32 flex items-center justify-center">
           <img
             src={attributes.image.data.attributes.formats.small.url}
@@ -55,7 +66,10 @@ const Car = ({ car }: { car: CarInterface }) => {
           ${attributes.price.toFixed(2)}/
           <span className="text-xs text-secondinary-300">day</span>
         </h3>
-        <button className="bg-primary-500 text-sm text-white px-4 py-2 rounded-[4px]">
+        <button
+          onClick={rentalHandler}
+          className="bg-primary-500 text-sm text-white px-4 py-2 rounded-[4px]"
+        >
           Rental Now
         </button>
       </div>

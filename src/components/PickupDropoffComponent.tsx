@@ -112,7 +112,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
           {showLocation && (
             <div
               ref={locationRef}
-              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px]`}
+              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px] bg-white`}
             >
               <DropdownList
                 defaultValue="Search"
@@ -173,7 +173,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
           {showTime && (
             <div
               ref={timeRef}
-              className={`duration-200 absolute top-12 -left-14 mx-auto w-[120px]`}
+              className={`duration-200 absolute top-12 -left-14 mx-auto w-[120px] bg-white shadow-lg`}
             >
               <TimeInput
                 onChange={(value) =>
@@ -234,7 +234,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
           {showLocation && (
             <div
               ref={locationRef}
-              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px]`}
+              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px] bg-white`}
             >
               <DropdownList
                 defaultValue="Search"
@@ -297,7 +297,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
           {showTime && (
             <div
               ref={timeRef}
-              className={`duration-200 absolute top-12 -left-14 md:-left-10 mx-auto w-[120px]`}
+              className={`duration-200 absolute top-12 -left-14 md:-left-10 mx-auto w-[120px] bg-white shadow-lg`}
             >
               <TimeInput
                 onChange={(value) =>

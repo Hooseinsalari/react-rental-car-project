@@ -13,6 +13,7 @@ import VehiclesPage from "./pages/VehiclesPage";
 import DetailCarPage from "./pages/DetailCarPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import PaymentPage from "./pages/PaymentPage";
 
 // helper
 import ScrollToTop from "./helper/ScrollToTop";
@@ -27,6 +28,7 @@ function App() {
         <Route path="detailCar/:id" element={<DetailCarPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
       <Footer />
       <Toaster />

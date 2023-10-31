@@ -44,7 +44,7 @@ export interface CarInterface {
         };
       };
     };
-    gallery: {
+    gallery?: {
       data: [
         {
           id: number;
