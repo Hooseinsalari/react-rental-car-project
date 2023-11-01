@@ -112,7 +112,7 @@ function Profile() {
   };
   
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <div
         id="profile"
         onClick={() => setIsShowProfile((prevState) => !prevState)}

@@ -112,7 +112,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
           {showLocation && (
             <div
               ref={locationRef}
-              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px] bg-white`}
+              className={`duration-200 absolute top-12 md:-left-4 -left-7 xs:-left-5 mx-auto w-[290px] bg-white`}
             >
               <DropdownList
                 defaultValue="Search"
@@ -124,7 +124,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative z-50">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Date</h3>
           <h4
             id="calendar"
@@ -234,7 +234,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
           {showLocation && (
             <div
               ref={locationRef}
-              className={`duration-200 absolute top-12 md:-left-12 -left-5 mx-auto w-[300px] bg-white`}
+              className={`duration-200 absolute top-12 md:-left-4 -left-7 xs:-left-5 mx-auto w-[290px] bg-white`}
             >
               <DropdownList
                 defaultValue="Search"
@@ -248,7 +248,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
             </div>
           )}
         </div>
-        <div className="md:ml-5 cursor-pointer relative">
+        <div className="md:ml-5 cursor-pointer relative z-40">
           <h3 className="font-bold text-secondinary-500 lg:text-base">Date</h3>
           <h4
             id="calendar"
