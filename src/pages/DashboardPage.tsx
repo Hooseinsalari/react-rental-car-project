@@ -1,0 +1,220 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
+// context
+import { useRentCar } from "../context/RentCarContextProvider";
+
+// component
+import Chart from "../components/Chart";
+
+// assets
+import Maps from "../assets/images/Maps.png";
+import Menu from "../assets/svg/menu.svg";
+import Logout from "../assets/svg/logout2.svg";
+
+// constant
+import { mainMenuItems, preferencesItems } from "../constant";
+
+const DashboardPage = () => {
+  const { state } = useRentCar();
+
+  return (
+    <div className="px-6 py-8 relative lg:static lg:flex lg:flex-row-reverse lg:p-0 lg:gap-4">
+      <DashboardContent />
+
+      <Sidebar />
+    </div>
+  );
+};
+
+export default DashboardPage;
+
+function DashboardContent() {
+  const { state } = useRentCar();
+
+  return (
+    <div className="lg:flex lg:justify-start lg:gap-x-8 lg:p-8">
+      <div className="bg-white rounded-lg p-4 lg:w-1/2">
+        <h1 className="text-secondinary-500 font-bold">Detail Rental</h1>
+
+        <div className="my-6 w-full mx-auto">
+          <img src={Maps} alt="map" className="mx-auto" />
+        </div>
+
+        <div className="flex items-center">
+          <div className="bg-car-bg bg-cover w-1/2 bg-no-repeat rounded-lg lg:w-[40%] sm:w-[30%]">
+            <img
+              src={
+                state.cart?.attributes.image.data.attributes.formats.small.url
+              }
+              alt=""
+            />
+          </div>
+          <div className="ml-2">
+            <h1 className="text-secondinary-500 text-lg font-bold">
+              {state.cart?.attributes.name}
+            </h1>
+            <h1 className="text-[#3D5278] text-sm font-medium">
+              {state.cart?.attributes.type}
+            </h1>
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <h1 className="text-secondinary-500 font-semibold">Pick-Up</h1>
+          <div className="bg-[#F6F7F9] rounded-lg p-2 py-4">
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Location</h1>
+              <h1 className="text-secondinary-400 font-medium">Tehran</h1>
+            </div>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Time</h1>
+              <h1 className="text-secondinary-400 font-medium">07:00</h1>
+            </div>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Date</h1>
+              <h1 className="text-secondinary-400 font-medium">20 July 2023</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5">
+          <h1 className="text-secondinary-500 font-semibold">Drop-Off</h1>
+          <div className="bg-[#F6F7F9] rounded-lg p-2 py-4">
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Location</h1>
+              <h1 className="text-secondinary-400 font-medium">Rasht</h1>
+            </div>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Time</h1>
+              <h1 className="text-secondinary-400 font-medium">18:00</h1>
+            </div>
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="text-secondinary-500 font-semibold">Date</h1>
+              <h1 className="text-secondinary-400 font-medium">22 July 2023</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="py-4 border-t mt-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-secondinary-500 font-bold">
+              Total Rental Price
+            </h1>
+            <h2 className="text-secondinary-300 text-xs font-medium">
+              Overall price rental
+            </h2>
+          </div>
+          <h2 className="text-secondinary-500 font-bold text-lg lg:text-xl">
+            $80.00
+          </h2>
+        </div>
+      </div>
+
+      <div className="lg:w-1/2">
+        <div className="bg-white rounded-lg p-4 pb-0 mt-8 lg:m-0">
+          <h1 className="text-secondinary-500 font-bold mb-5">
+            Top 5 Car Rental
+          </h1>
+          <Chart />
+        </div>
+
+        <div className="bg-white rounded-lg p-4 mt-8">
+          <h1 className="text-secondinary-500 font-bold">Recent Transaction</h1>
+          <div className="flex items-center justify-between my-2 border-b py-2">
+            <div className="flex items-center">
+              <div className="w-20">
+                <img
+                  src={
+                    state.cart?.attributes.image.data.attributes.formats.small
+                      .url
+                  }
+                  alt="car"
+                />
+              </div>
+              <div className="ml-2">
+                <h1 className="text-secondinary-500 font-bold text-sm">
+                  {state.cart?.attributes.name}
+                </h1>
+                <h2 className="text-secondinary-300 text-xs font-medium">
+                  {state.cart?.attributes.type}
+                </h2>
+              </div>
+            </div>
+            <div>
+              <h2 className="text-xs font-medium">20 July</h2>
+              <h1 className="text-secondinary-500 text-sm font-bold">$80.00</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Sidebar() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <div className="w-full lg:w-[30%] xl:w-[25%]">
+      <div
+        className={`bg-white p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
+          isOpen ? "translate-x-0" : "translate-x-[-100%]"
+        } transition-transform duration-300 ease-in-out`}
+      >
+        <button
+          onClick={() => setIsOpen((prevState) => !prevState)}
+          className={`lg:hidden absolute top-16 -right-12 bg-secondinary-100 p-2 pl-10 -z-10 py-5 rounded-full cursor-pointer ${
+            isOpen && "rounded-half pl-2"
+          }`}
+        >
+          <img className="w-8 h-8" src={Menu} alt="menu" />
+        </button>
+        <div className="h-screen overflow-y-auto flex-1 flex flex-col items-start">
+          <div className="w-full">
+            <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+              MANIN MENU
+            </h1>
+            <ul>
+              {mainMenuItems.map((i) => (
+                <NavLink
+                  to="/dashboard"
+                  key={i.item}
+                  className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                >
+                  <img src={i.icon} alt={i.item} className="mr-3" />
+                  <span>{i.item}</span>
+                </NavLink>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-16 w-full">
+            <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+              PREFERENCES
+            </h1>
+            <ul>
+              {preferencesItems.map((i) => (
+                <NavLink
+                  to="/dashboard"
+                  key={i.item}
+                  className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                >
+                  <img src={i.icon} alt={i.item} className="mr-3" />
+                  <span>{i.item}</span>
+                </NavLink>
+              ))}
+            </ul>
+          </div>
+
+          <div className="w-full my-8 mb-8 lg:mb-14 flex-1">
+            <button className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2">
+              <img src={Logout} alt="logout" className="mr-3" />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

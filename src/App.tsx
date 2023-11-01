@@ -14,11 +14,17 @@ import DetailCarPage from "./pages/DetailCarPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import PaymentPage from "./pages/PaymentPage";
+import DashboardPage from "./pages/DashboardPage";
 
 // helper
 import ScrollToTop from "./helper/ScrollToTop";
 
+// context
+import { useAuth } from "./context/AuthContextProvider";
+
 function App() {
+  const { userData } = useAuth();
+
   return (
     <div className="bg-[#F6F7F9;] min-h-screen">
       <Navbar />
@@ -29,6 +35,9 @@ function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="/payment" element={<PaymentPage />} />
+        {userData.user && (
+          <Route path="/dashboard" element={<DashboardPage />} />
+        )}
       </Routes>
       <Footer />
       <Toaster />

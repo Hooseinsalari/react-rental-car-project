@@ -71,6 +71,9 @@ export default {
           900: "#040815",
         },
       },
+      borderRadius: {
+        'half': '0px 50% 50% 0px'
+      },
       backgroundImage: {
         "first-ad": "url('./src/assets/images/image-7.png')",
         "second-ad": "url('./src/assets/images/image-8.png')",

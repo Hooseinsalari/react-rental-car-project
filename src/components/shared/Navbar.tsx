@@ -148,7 +148,7 @@ function Profile() {
         <div className="py-2 px-2">
           <span className="w-full flex items-center duration-200 p-2 rounded-xl hover:bg-slate-200">
             <img src={DashboardIcon} alt="dashboard" className="w-6 h-6 mr-1" />
-            <Link to="/" className="font-semibold text-secondinary-500 text-sm">
+            <Link to="/dashboard" className="font-semibold text-secondinary-500 text-sm">
               Dashboard
             </Link>
           </span>

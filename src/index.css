@@ -12,13 +12,16 @@ html {
   scroll-behavior: smooth;
 }
 
-.rw-widget-picker, .rw-combobox-input, .rw-widget-input {
+.rw-widget-picker,
+.rw-combobox-input,
+.rw-widget-input {
   border: none;
   border-radius: 10px;
   background: transparent;
 }
 
-.rw-combobox-input, .rw-widget-input {
+.rw-combobox-input,
+.rw-widget-input {
   background: transparent;
   box-shadow: none;
   outline: none;
@@ -34,12 +37,14 @@ html {
   font-weight: 600;
 }
 
-.rw-combobox-input:focus , .rw-widget-input:focus {
+.rw-combobox-input:focus,
+.rw-widget-input:focus {
   outline: none;
   border: none;
   box-shadow: none;
 }
-.rw-input-addon, .rw-input-addon.rw-picker-btn {
+.rw-input-addon,
+.rw-input-addon.rw-picker-btn {
   border: none;
 }
 
@@ -55,4 +60,25 @@ html {
 input:where(:not([type])):focus {
   border: none;
   box-shadow: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c7c7c7;
 }
