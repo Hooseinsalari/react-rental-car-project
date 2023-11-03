@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 // react router dom
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 // interface
 import { FormValues } from "../interfaces";
@@ -22,6 +22,12 @@ import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const RegisterPage = () => {
   const { setUserData } = useAuth();
+
+  // ** query
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect")
+    ? `/${searchParams.get("redirect")}`
+    : "/";
 
   // ** navigate
   const navigate = useNavigate();
@@ -80,7 +86,7 @@ const RegisterPage = () => {
       toast.success(`Wellcome to morent ${data.data.user.username}`, {
         duration: 10000,
       });
-      navigate("/", { replace: true });
+      navigate(redirect, { replace: true });
     },
     onError(error: any) {
       toast.error(error.response.data.error.message);
@@ -182,7 +188,7 @@ const RegisterPage = () => {
           </button>
           <Link
             className="text-sm font-medium text-secondinary-300 mt-2"
-            to="/"
+            to={`/login?redirect=${redirect.substring(1)}`}
           >
             already have account?
           </Link>

@@ -143,7 +143,7 @@ export interface DetailsCar {
           };
         };
       };
-      gallery: {
+      gallery?: {
         data: [
           {
             id: number;

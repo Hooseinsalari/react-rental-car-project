@@ -1,5 +1,8 @@
+import { Link, useNavigate } from "react-router-dom";
+
 // context
 import { useRentCar } from "../../context/RentCarContextProvider";
+import { useAuth } from "../../context/AuthContextProvider";
 
 // interface
 import { CarInterface } from "../../interfaces";
@@ -8,14 +11,25 @@ import { CarInterface } from "../../interfaces";
 import GasStation from "../../assets/svg/gas-station.svg";
 import Gear from "../../assets/svg/gear.svg";
 import Capacity from "../../assets/svg/capacity.svg";
-import { Link } from "react-router-dom";
+
+// toast
+import toast from "react-hot-toast";
 
 const Car = ({ car }: { car: CarInterface }) => {
   const { attributes } = car;
   const { dispatch } = useRentCar();
+  const {userData} = useAuth()
+  const navigate = useNavigate()
 
   const rentalHandler = () => {
     dispatch({ type: "ADD_TO_CART", payload: car });
+    toast(
+      "Please login to your account.",
+      {
+        duration: 6000,
+      }
+    );
+    navigate(`${userData.user ? '/payment' : '/login?redirect=payment'}`)
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // useQuery
 import { useQuery } from "@tanstack/react-query";
@@ -11,8 +11,19 @@ import { Zoom } from "yet-another-react-lightbox/plugins";
 // skeleton
 import CarInfoSkeleton from "../skeleton/CarInfoSkeleton";
 
+// svg
+import Star from "../assets/svg/star-icon.svg";
+import EmptyStar from "../assets/svg/empty-star.svg";
+
 // interfaces
 import { DetailsCar } from "../interfaces";
+
+// context
+import { useRentCar } from "../context/RentCarContextProvider";
+import { useAuth } from "../context/AuthContextProvider";
+
+// toast 
+import toast from "react-hot-toast";
 
 // fetcher
 async function fetchSingleData(id: string) {
@@ -29,6 +40,7 @@ const CarInfo = () => {
 
   // ** get params
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // ** useQuery
   const { data, isLoading } = useQuery<DetailsCar>({
@@ -36,9 +48,27 @@ const CarInfo = () => {
     queryFn: () => fetchSingleData(id!),
   });
 
+  // ** context
+  const { dispatch } = useRentCar();
+  const { userData } = useAuth();
+
+  // ** handler
+  const rentalHandler = () => {
+    if (data?.data) {
+      dispatch({ type: "ADD_TO_CART", payload: data?.data });
+    }
+    toast(
+      "Please login to your account.",
+      {
+        duration: 6000,
+      }
+    );
+    navigate(`${userData.user ? "/payment" : "/login?redirect=payment"}`);
+  };
+
   const { attributes } = data?.data ?? {};
 
-  const slides = data?.data.attributes.gallery.data.map((i) => {
+  const slides = data?.data.attributes.gallery?.data.map((i) => {
     return {
       src: i.attributes.formats.small.url,
       alt: "image 1",
@@ -72,7 +102,7 @@ const CarInfo = () => {
               onClick={() => setOpen(true)}
             />
             <div className="flex items-center justify-center flex-wrap gap-2 lg:gap-x-7 sm:flex-nowrap sm:flex-col lg:flex-row">
-              {data?.data.attributes.gallery.data.map((g) => (
+              {data?.data.attributes.gallery?.data.map((g) => (
                 <img
                   onClick={() => setOpen(true)}
                   className="w-20 h-20 sm:w-28 sm:h-28 rounded-lg cursor-pointer"
@@ -87,10 +117,22 @@ const CarInfo = () => {
             <h1 className="text-secondinary-500 text-xl font-bold lg:text-3xl">
               {attributes?.name}
             </h1>
-            {/* <div>
-                <h1>start</h1>
-                <h1>440+ Reviewer</h1>
-              </div> */}
+            <div className="flex items-center gap-x-2 mt-2">
+              <div className="flex items-center">
+                <img className="w-3 h-3 sm:w-4 sm:h-4" src={Star} alt="star" />
+                <img className="w-3 h-3 sm:w-4 sm:h-4" src={Star} alt="star" />
+                <img className="w-3 h-3 sm:w-4 sm:h-4" src={Star} alt="star" />
+                <img className="w-3 h-3 sm:w-4 sm:h-4" src={Star} alt="star" />
+                <img
+                  className="w-3 h-3 sm:w-4 sm:h-4"
+                  src={EmptyStar}
+                  alt="star"
+                />
+              </div>
+              <h3 className="text-[#3D5278] text-xs font-medium mt-1 sm:mt-0 sm:text-sm">
+                440+ Reviewer
+              </h3>
+            </div>
             <p className="my-5 text-secondinary-300 font-normal text-sm leading-6 lg:text-base">
               NISMO has become the embodiment of Nissan's outstanding
               performance, inspired by the most unforgiving proving ground, the
@@ -135,7 +177,10 @@ const CarInfo = () => {
                 ${attributes?.price.toFixed(2)}/
                 <span className="text-xs text-secondinary-300">day</span>
               </h3>
-              <button className="bg-primary-500 text-sm text-white px-4 py-2 rounded-[4px] lg:text-lg">
+              <button
+                onClick={rentalHandler}
+                className="bg-primary-500 text-sm text-white px-4 py-2 rounded-[4px] lg:text-lg"
+              >
                 Rental Now
               </button>
             </div>

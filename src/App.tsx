@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // toast
 import { Toaster } from "react-hot-toast";
@@ -32,12 +32,19 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="detailCar/:id" element={<DetailCarPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route
+          path="register"
+          element={userData.user ? <Navigate to="/" /> : <RegisterPage />}
+        />
+        <Route
+          path="login"
+          element={userData.user ? <Navigate to="/" /> : <LoginPage />}
+        />
         <Route path="/payment" element={<PaymentPage />} />
-        {userData.user && (
-          <Route path="/dashboard" element={<DashboardPage />} />
-        )}
+        <Route
+          path="/dashboard"
+          element={userData.user ? <DashboardPage /> : <Navigate to="/" />}
+        />
       </Routes>
       <Footer />
       <Toaster />

@@ -115,6 +115,7 @@ function RentSummary() {
       </div>
       <form className="flex items-center justify-between px-2 mb-6 bg-[#F6F7F9] rounded-lg sm:py-2">
         <input
+          required={true}
           type="text"
           placeholder="Apply promo code"
           className="bg-transparent focus:ring-0 border-none text-secondinary-300 text-xs py-2 sm:text-sm"
@@ -167,6 +168,7 @@ function BillingInfo() {
             Name
           </label>
           <input
+            required={true}
             type="text"
             id="name"
             placeholder="Your name"
@@ -181,6 +183,7 @@ function BillingInfo() {
             Address
           </label>
           <input
+            required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
             id="address"
@@ -195,6 +198,7 @@ function BillingInfo() {
             Phone Number
           </label>
           <input
+            required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
             id="phone"
@@ -209,6 +213,7 @@ function BillingInfo() {
             Town/City
           </label>
           <input
+            required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
             id="town"
@@ -339,6 +344,7 @@ function PaymentMethod() {
               Card Nubmber
             </label>
             <input
+              required={true}
               type="text"
               id="card"
               placeholder="Card number"
@@ -353,6 +359,7 @@ function PaymentMethod() {
               Card Holder
             </label>
             <input
+              required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
               id="holder"
@@ -367,6 +374,7 @@ function PaymentMethod() {
               Expration Date
             </label>
             <input
+              required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
               id="date"
@@ -381,6 +389,7 @@ function PaymentMethod() {
               CVC
             </label>
             <input
+              required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
               id="CVC"
@@ -392,7 +401,14 @@ function PaymentMethod() {
 
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
-          <input name="pay" value="paypal" id="paypal" type="radio" />
+          <input
+            required={true}
+            name="pay"
+            value="paypal"
+            id="paypal"
+            type="radio"
+          />
+
           <label
             className="text-secondinary-500 text-sm font-semibold"
             htmlFor="paypal"
@@ -405,7 +421,14 @@ function PaymentMethod() {
 
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
-          <input name="pay" value="bitcoin" id="bit" type="radio" />
+          <input
+            required={true}
+            name="pay"
+            value="bitcoin"
+            id="bit"
+            type="radio"
+          />
+
           <label
             className="text-secondinary-500 text-sm font-semibold"
             htmlFor="bit"
@@ -439,6 +462,7 @@ function Comfirmation() {
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
           <input
+            required={true}
             name="pay"
             value="paypal"
             id="con1"
@@ -458,6 +482,7 @@ function Comfirmation() {
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
           <input
+            required={true}
             name="pay"
             value="bitcoin"
             id="con2"
