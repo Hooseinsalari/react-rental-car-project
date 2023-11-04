@@ -211,3 +211,32 @@ export interface LoginFormValues {
   identifier: string;
   password: string;
 }
+
+export interface InputsValueInterface {
+  name: string;
+  address: string;
+  phone: string;
+  town: string;
+  card: string;
+  holder: string;
+  date: string;
+  cvc: string;
+  pay: string;
+  check1: boolean;
+}
+
+export interface PaymentCompoProps {
+  inputsValue: InputsValueInterface;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface RentalInfoProps {
+  pickUpDetails: PickUpDropOffInterface;
+  setPickUpDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
+  dropOffDetails: PickUpDropOffInterface;
+  setDropOffDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
+}

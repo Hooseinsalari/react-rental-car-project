@@ -34,8 +34,9 @@ function numberOfDays(start: string, end: string) {
   const startDate = new Date(`${start}`);
   const endDate = new Date(`${end}`);
 
-  const timeDifference = endDate.getTime() - startDate.getTime();
-  const numberOfDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  let timeDifference = endDate.getTime() - startDate.getTime();
+  
+  const numberOfDays = Math.ceil((timeDifference || 86400000) / (1000 * 60 * 60 * 24));
 
   return numberOfDays.toFixed(2);
 }
