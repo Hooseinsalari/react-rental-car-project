@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, useContext, useEffect } from "react";
-import { CarInterface } from "../interfaces";
+import { CarInterface, PickUpDropOffInterface } from "../interfaces";
 
 interface InitialStateType {
   cart: null | CarInterface;
@@ -10,7 +10,12 @@ interface InitialStateType {
 
 type ACTIONTYPE =
   | { type: "ADD_TO_CART"; payload: CarInterface }
-  | { type: "CHECKOUT"; payload: CarInterface }
+  | {
+      type: "CHECKOUT";
+      payload: CarInterface
+      pickUpDetails: PickUpDropOffInterface;
+      dropOffDetails: PickUpDropOffInterface;
+    }
   | { type: "REMOVE_ITEM"; payload: CarInterface };
 
 const initialState: InitialStateType = {
@@ -41,8 +46,16 @@ const reducer = (
       return {
         ...state,
         checkout: true,
+        rentedCars: [
+          ...state.rentedCars,
+          {
+            ...action.payload,
+            pickUpDetails: action.pickUpDetails,
+            dropOffDetails: action.dropOffDetails
+          }
+          
+        ],
         cart: null,
-        rentedCars: [...state.rentedCars, action.payload],
       };
     default:
       return state;

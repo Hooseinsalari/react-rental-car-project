@@ -22,7 +22,7 @@ import { DetailsCar } from "../interfaces";
 import { useRentCar } from "../context/RentCarContextProvider";
 import { useAuth } from "../context/AuthContextProvider";
 
-// toast 
+// toast
 import toast from "react-hot-toast";
 
 // fetcher
@@ -57,12 +57,11 @@ const CarInfo = () => {
     if (data?.data) {
       dispatch({ type: "ADD_TO_CART", payload: data?.data });
     }
-    toast(
-      "Please login to your account.",
-      {
+    if (!userData.user) {
+      toast("Please login to your account.", {
         duration: 6000,
-      }
-    );
+      });
+    }
     navigate(`${userData.user ? "/payment" : "/login?redirect=payment"}`);
   };
 

@@ -19,6 +19,8 @@ export interface MarkProps {
 }
 
 export interface CarInterface {
+  pickUpDetails?: PickUpDropOffInterface | null;
+  dropOffDetails?: PickUpDropOffInterface | null;
   id: number;
   attributes: {
     name: string;
@@ -118,6 +120,8 @@ export interface FilterBarProps {
 export interface DetailsCar {
   id: number;
   data: {
+    pickUpDetails?: PickUpDropOffInterface;
+    dropOffDetails?: PickUpDropOffInterface;
     id: number;
     attributes: {
       name: string;

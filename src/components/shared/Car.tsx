@@ -18,18 +18,17 @@ import toast from "react-hot-toast";
 const Car = ({ car }: { car: CarInterface }) => {
   const { attributes } = car;
   const { dispatch } = useRentCar();
-  const {userData} = useAuth()
-  const navigate = useNavigate()
+  const { userData } = useAuth();
+  const navigate = useNavigate();
 
   const rentalHandler = () => {
     dispatch({ type: "ADD_TO_CART", payload: car });
-    toast(
-      "Please login to your account.",
-      {
+    if (!userData.user) {
+      toast("Please login to your account.", {
         duration: 6000,
-      }
-    );
-    navigate(`${userData.user ? '/payment' : '/login?redirect=payment'}`)
+      });
+    }
+    navigate(`${userData.user ? "/payment" : "/login?redirect=payment"}`);
   };
 
   return (

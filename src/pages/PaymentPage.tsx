@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // context
 import { useRentCar } from "../context/RentCarContextProvider";
@@ -21,21 +22,127 @@ import Walet from "../assets/images/walet.png";
 
 // constant
 import { citiesInIran } from "../constant";
+import { PickUpDropOffInterface } from "../interfaces";
+import {
+  formatDate,
+  formatTime,
+  isFilled,
+  numberOfDays,
+} from "../helper/functions";
+import toast from "react-hot-toast";
+
+interface InputsValueInterface {
+  name: string;
+  address: string;
+  phone: string;
+  town: string;
+  card: string;
+  holder: string;
+  date: string;
+  cvc: string;
+  pay: string;
+  check1: boolean;
+}
 
 const PaymentPage = () => {
-  const { state } = useRentCar();
+  const { state, dispatch } = useRentCar();
+
+  const navigate = useNavigate();
+
+  // ** state
+  const [pickUpDetails, setPickUpDetails] = useState<PickUpDropOffInterface>({
+    location: "",
+    date: "",
+    time: "",
+  });
+  const [dropOffDetails, setDropOffDetails] = useState<PickUpDropOffInterface>({
+    location: "",
+    date: "",
+    time: "",
+  });
+
+  const [inputsValue, setInputsValue] = useState<InputsValueInterface>({
+    name: "",
+    address: "",
+    phone: "",
+    town: "",
+    card: "",
+    holder: "",
+    date: "",
+    cvc: "",
+    pay: "",
+    check1: false,
+  });
+
+  // ** handler
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+
+    setInputsValue((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const submitHandler = () => {
+    const inputsValueFilled = isFilled(inputsValue);
+    const pickUpFilled = isFilled(pickUpDetails);
+    const dropOffFilled = isFilled(dropOffDetails);
+
+    if (!inputsValueFilled && !pickUpFilled && !dropOffFilled) {
+      toast.error("Please fill all fields.");
+    } else if (
+      inputsValueFilled &&
+      pickUpFilled &&
+      dropOffFilled &&
+      state.cart
+    ) {
+      dispatch({
+        type: "CHECKOUT",
+        payload: state.cart,
+        dropOffDetails,
+        pickUpDetails,
+      });
+      toast.success(
+        "Your purchase has been successfully completed, please visit your dashboard to view",
+        {
+          duration: 6000,
+        }
+      );
+      navigate("/dashboard", { replace: true });
+    }
+  };
+
   return (
     <>
       {state.cart ? (
         <div className="px-6 md:px-10 flex flex-col lg:flex-row-reverse lg:gap-x-2">
           <div className="flex-shrink lg:w-2/5 lg:px-6">
-            <RentSummary />
+            <RentSummary
+              startDate={pickUpDetails.date}
+              endDate={dropOffDetails.date}
+            />
           </div>
           <div className="flex-shrink-0 lg:w-3/5 lg:px-6">
-            <BillingInfo />
-            <RentalInfo />
-            <PaymentMethod />
-            <Comfirmation />
+            <BillingInfo
+              inputsValue={inputsValue}
+              handleInputChange={handleInputChange}
+            />
+            <RentalInfo
+              pickUpDetails={pickUpDetails}
+              setPickUpDetails={setPickUpDetails}
+              dropOffDetails={dropOffDetails}
+              setDropOffDetails={setDropOffDetails}
+            />
+            <PaymentMethod
+              inputsValue={inputsValue}
+              handleInputChange={handleInputChange}
+            />
+            <Comfirmation
+              inputsValue={inputsValue}
+              handleInputChange={handleInputChange}
+              submitHandler={submitHandler}
+            />
           </div>
         </div>
       ) : (
@@ -54,8 +161,18 @@ const PaymentPage = () => {
 
 export default PaymentPage;
 
-function RentSummary() {
+function RentSummary({
+  startDate,
+  endDate,
+}: {
+  startDate: string;
+  endDate: string;
+}) {
   const { state } = useRentCar();
+
+  let totalPrice = (
+    +numberOfDays(startDate, endDate) * state.cart?.attributes.price!
+  ).toFixed(2);
 
   return (
     <div className="bg-white rounded-md p-4 my-8">
@@ -134,15 +251,22 @@ function RentSummary() {
           </h3>
         </div>
         <h1 className="text-secondinary-500 text-xl font-bold sm:text-2xl">
-          $80.00
+          {/* calculate total price */}$
+          {startDate && endDate && state.cart?.attributes.price
+            ? totalPrice
+            : state.cart?.attributes.price.toFixed(2)}
         </h1>{" "}
-        {/* change to total price */}
       </div>
     </div>
   );
 }
 
-function BillingInfo() {
+interface PaymentCompoProps {
+  inputsValue: InputsValueInterface;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function BillingInfo({ inputsValue, handleInputChange }: PaymentCompoProps) {
   return (
     <div className="my-8 rounded-md bg-white p-4">
       <div className="flex items-start justify-between mb-6 sm:mb-8">
@@ -168,6 +292,9 @@ function BillingInfo() {
             Name
           </label>
           <input
+            onChange={handleInputChange}
+            value={inputsValue.name}
+            name="name"
             required={true}
             type="text"
             id="name"
@@ -183,6 +310,9 @@ function BillingInfo() {
             Address
           </label>
           <input
+            onChange={handleInputChange}
+            value={inputsValue.address}
+            name="address"
             required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
@@ -198,6 +328,9 @@ function BillingInfo() {
             Phone Number
           </label>
           <input
+            onChange={handleInputChange}
+            value={inputsValue.phone}
+            name="phone"
             required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
@@ -213,6 +346,9 @@ function BillingInfo() {
             Town/City
           </label>
           <input
+            onChange={handleInputChange}
+            value={inputsValue.town}
+            name="town"
             required={true}
             className="focus:ring-0 border-none bg-[#F6F7F9] rounded-lg px-6 py-3 text-sm font-medium"
             type="text"
@@ -225,7 +361,23 @@ function BillingInfo() {
   );
 }
 
-function RentalInfo() {
+interface RentalInfoProps {
+  pickUpDetails: PickUpDropOffInterface;
+  setPickUpDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
+  dropOffDetails: PickUpDropOffInterface;
+  setDropOffDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
+}
+
+function RentalInfo({
+  pickUpDetails,
+  setPickUpDetails,
+  dropOffDetails,
+  setDropOffDetails,
+}: RentalInfoProps) {
   return (
     <div className="my-8 rounded-md bg-white p-4">
       <div className="flex items-start justify-between mb-6 sm:mb-8">
@@ -252,7 +404,14 @@ function RentalInfo() {
               Locations
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <Combobox data={citiesInIran} placeholder="Select your city" />
+              <Combobox
+                onChange={(value) =>
+                  setPickUpDetails({ ...pickUpDetails, location: value })
+                }
+                name="location"
+                data={citiesInIran}
+                placeholder="Select your city"
+              />
             </div>
           </div>
           <div>
@@ -260,15 +419,32 @@ function RentalInfo() {
               Date
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <DatePicker min={new Date()} />
+              <DatePicker
+                onChange={(value) =>
+                  setPickUpDetails({
+                    ...pickUpDetails,
+                    date: formatDate(value),
+                  })
+                }
+                name="date"
+                min={new Date()}
+              />
             </div>
           </div>
           <div>
             <label className="text-secondinary-500 text-sm font-semibold mb-2 inline-block">
-              Locations
+              Time
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <TimeInput className="timeInput" style={{ width: "100%" }} />
+              <TimeInput
+                onChange={(value) =>
+                  setPickUpDetails({
+                    ...pickUpDetails,
+                    time: formatTime(value),
+                  })
+                }
+                style={{ width: "100%" }}
+              />
             </div>
           </div>
         </div>
@@ -284,7 +460,13 @@ function RentalInfo() {
               Locations
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <Combobox data={citiesInIran} placeholder="Select your city" />
+              <Combobox
+                onChange={(value) =>
+                  setDropOffDetails({ ...dropOffDetails, location: value })
+                }
+                data={citiesInIran}
+                placeholder="Select your city"
+              />
             </div>
           </div>
           <div>
@@ -292,15 +474,31 @@ function RentalInfo() {
               Date
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <DatePicker min={new Date()} />
+              <DatePicker
+                onChange={(value) =>
+                  setDropOffDetails({
+                    ...dropOffDetails,
+                    date: formatDate(value),
+                  })
+                }
+                min={new Date()}
+              />
             </div>
           </div>
           <div>
             <label className="text-secondinary-500 text-sm font-semibold mb-2 inline-block">
-              Locations
+              Time
             </label>
             <div className="bg-[#F6F7F9] rounded-lg">
-              <TimeInput style={{ width: "100%" }} />
+              <TimeInput
+                onChange={(value) =>
+                  setDropOffDetails({
+                    ...dropOffDetails,
+                    time: formatTime(value),
+                  })
+                }
+                style={{ width: "100%" }}
+              />
             </div>
           </div>
         </div>
@@ -309,7 +507,7 @@ function RentalInfo() {
   );
 }
 
-function PaymentMethod() {
+function PaymentMethod({ inputsValue, handleInputChange }: PaymentCompoProps) {
   return (
     <div className="my-8 rounded-md bg-white p-4">
       <div className="flex items-start justify-between mb-6 sm:mb-8">
@@ -344,6 +542,9 @@ function PaymentMethod() {
               Card Nubmber
             </label>
             <input
+              onChange={handleInputChange}
+              value={inputsValue.card}
+              name="card"
               required={true}
               type="text"
               id="card"
@@ -359,6 +560,9 @@ function PaymentMethod() {
               Card Holder
             </label>
             <input
+              onChange={handleInputChange}
+              value={inputsValue.holder}
+              name="holder"
               required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
@@ -374,6 +578,9 @@ function PaymentMethod() {
               Expration Date
             </label>
             <input
+              onChange={handleInputChange}
+              value={inputsValue.date}
+              name="date"
               required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
@@ -389,6 +596,9 @@ function PaymentMethod() {
               CVC
             </label>
             <input
+              onChange={handleInputChange}
+              value={inputsValue.cvc}
+              name="cvc"
               required={true}
               className="focus:ring-0 border-none bg-white rounded-lg px-6 py-3 text-sm font-medium"
               type="text"
@@ -402,11 +612,13 @@ function PaymentMethod() {
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
           <input
-            required={true}
-            name="pay"
+            onChange={handleInputChange}
             value="paypal"
+            name="pay"
+            required={true}
             id="paypal"
             type="radio"
+            checked={inputsValue.pay === "paypal"}
           />
 
           <label
@@ -422,11 +634,13 @@ function PaymentMethod() {
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
           <input
-            required={true}
-            name="pay"
+            onChange={handleInputChange}
             value="bitcoin"
+            name="pay"
+            required={true}
             id="bit"
             type="radio"
+            checked={inputsValue.pay === "bitcoin"}
           />
 
           <label
@@ -442,7 +656,15 @@ function PaymentMethod() {
   );
 }
 
-function Comfirmation() {
+function Comfirmation({
+  inputsValue,
+  handleInputChange,
+  submitHandler,
+}: {
+  inputsValue: InputsValueInterface;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submitHandler: () => void;
+}) {
   return (
     <div className="my-8 rounded-md bg-white p-4">
       <div className="flex items-start justify-between mb-6 sm:mb-8">
@@ -462,9 +684,8 @@ function Comfirmation() {
       <div className="bg-[#F6F7F9] p-4 rounded-lg flex items-center justify-between mt-5">
         <div className="flex flex-row items-center gap-x-4">
           <input
+            name="check1"
             required={true}
-            name="pay"
-            value="paypal"
             id="con1"
             type="checkbox"
             className="rounded-sm"
@@ -483,11 +704,13 @@ function Comfirmation() {
         <div className="flex flex-row items-center gap-x-4">
           <input
             required={true}
-            name="pay"
+            name="check1"
             value="bitcoin"
             id="con2"
             type="checkbox"
             className="rounded-sm"
+            checked={inputsValue.check1}
+            onChange={handleInputChange}
           />
           <label
             className="text-[#1F2544] text-sm font-semibold"
@@ -498,7 +721,10 @@ function Comfirmation() {
         </div>
       </div>
 
-      <button className="bg-primary-500 text-white rounded py-2 px-4 my-8">
+      <button
+        onClick={submitHandler}
+        className="bg-primary-500 text-white rounded py-2 px-4 my-8"
+      >
         Rental Now
       </button>
 
