@@ -481,7 +481,7 @@ function RentalInfo({
                     date: formatDate(value),
                   })
                 }
-                min={new Date()}
+                min={new Date(pickUpDetails.date)}
               />
             </div>
           </div>
