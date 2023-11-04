@@ -34,7 +34,7 @@ async function fetchAllData(price: string, type: string[], capacity: string[]) {
 }
 
 const VehiclesPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const type = JSON.parse(searchParams.get("type")!);
   const capacity = JSON.parse(searchParams.get("capacity")!);
