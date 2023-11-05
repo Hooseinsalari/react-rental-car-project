@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
-// useQuery
-import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 // gallery
 import Lightbox from "yet-another-react-lightbox";
@@ -25,28 +22,18 @@ import { useAuth } from "../context/AuthContextProvider";
 // toast
 import toast from "react-hot-toast";
 
-// fetcher
-async function fetchSingleData(id: string) {
-  const response = await fetch(
-    `https://morent-4li1.onrender.com/api/cars/${id}?populate=*`
-  );
-  const data = response.json();
-  return data;
-}
-
-const CarInfo = () => {
+const CarInfo = ({
+  data,
+  isLoading,
+}: {
+  data: DetailsCar | undefined;
+  isLoading: boolean;
+}) => {
   // ** states
   const [open, setOpen] = useState<boolean>(false);
 
-  // ** get params
-  const { id } = useParams();
+  // ** react router
   const navigate = useNavigate();
-
-  // ** useQuery
-  const { data, isLoading } = useQuery<DetailsCar>({
-    queryKey: ["carDetail", id],
-    queryFn: () => fetchSingleData(id!),
-  });
 
   // ** context
   const { dispatch } = useRentCar();
@@ -96,12 +83,12 @@ const CarInfo = () => {
           <div className="mt-5 sm:flex lg:block lg:flex-1">
             <img
               className="w-[30rem] mx-auto cursor-pointer"
-              src={data?.data.attributes.image.data.attributes.url}
+              src={attributes?.image.data.attributes.url}
               alt="image"
               onClick={() => setOpen(true)}
             />
             <div className="flex items-center justify-center flex-wrap gap-2 lg:gap-x-7 sm:flex-nowrap sm:flex-col lg:flex-row">
-              {data?.data.attributes.gallery?.data.map((g) => (
+              {attributes?.gallery?.data.map((g) => (
                 <img
                   onClick={() => setOpen(true)}
                   className="w-20 h-20 sm:w-28 sm:h-28 rounded-lg cursor-pointer"

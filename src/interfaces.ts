@@ -95,6 +95,19 @@ export interface CarInterface {
         }
       ];
     };
+    reviews?: {
+      data: [
+        {
+          id: number;
+          attributes: {
+            name: string;
+            position: string;
+            message: string;
+            createdAt: string;
+          };
+        }
+      ];
+    };
   };
 }
 
@@ -192,6 +205,19 @@ export interface DetailsCar {
                 };
               };
               url: string;
+            };
+          }
+        ];
+      };
+      reviews?: {
+        data: [
+          {
+            id: number;
+            attributes: {
+              name: string;
+              position: string;
+              message: string;
+              createdAt: string;
             };
           }
         ];

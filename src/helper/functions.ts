@@ -35,10 +35,30 @@ function numberOfDays(start: string, end: string) {
   const endDate = new Date(`${end}`);
 
   let timeDifference = endDate.getTime() - startDate.getTime();
-  
-  const numberOfDays = Math.ceil((timeDifference || 86400000) / (1000 * 60 * 60 * 24));
+
+  const numberOfDays = Math.ceil(
+    (timeDifference || 86400000) / (1000 * 60 * 60 * 24)
+  );
 
   return numberOfDays.toFixed(2);
 }
 
-export { formatDate, formatTime, generateParams, isFilled, numberOfDays };
+function extractDate(dateString: string) {
+  const dateObj = new Date(dateString);
+  const formattedDate = dateObj.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  return formattedDate;
+}
+
+export {
+  formatDate,
+  formatTime,
+  generateParams,
+  isFilled,
+  numberOfDays,
+  extractDate,
+};

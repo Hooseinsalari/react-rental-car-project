@@ -1,8 +1,26 @@
+import React, { useState } from "react";
+
 // svg
 import ProfileCircle from "../assets/svg/profile-circle.svg";
 import ArrowIcon from "../assets/svg/arrow-down.svg";
 
-const CarReviews = () => {
+// interface
+import { DetailsCar } from "../interfaces";
+import { extractDate } from "../helper/functions";
+
+const CarReviews = ({
+  data,
+  isLoading,
+}: {
+  data: DetailsCar | undefined;
+  isLoading: boolean;
+}) => {
+  const { reviews } = data?.data.attributes ?? {};
+
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const reviewsToShow = isShow ? reviews?.data : reviews?.data.slice(0, 2);
+
   return (
     <div className="bg-white py-5 px-4 mt-8 rounded-lg shadow-sm">
       <div className="flex items-center mb-6">
@@ -10,77 +28,81 @@ const CarReviews = () => {
           Reviews
         </h1>
         <h2 className="bg-primary-500 px-5 w-11 h-7 flex items-center justify-center text-white font-bold rounded-md text-sm">
-          13
+          {reviews?.data.length}
         </h2>
       </div>
 
       <div>
-        <div className="mb-8">
-          <div className="flex items-start justify-between">
-            <div className="flex items-start">
-              <img
-                src={ProfileCircle}
-                alt="avatar"
-                className="w-11 h-11 mr-2"
-              />
-              <div>
-                <h1 className="text-secondinary-500 font-semibold text-base mb-1">
-                  Alex Stanton
-                </h1>
-                <h3 className="text-secondinary-300 text-xs fotn">
-                  CEO at Bukalapak
-                </h3>
-              </div>
+        {reviews?.data.length! >= 1 && !isLoading ? (
+          reviewsToShow?.map((r) => (
+            <div key={r.id}>
+              <Reviews items={r} />
             </div>
-            <div>
-              <h2 className="text-secondinary-300 text-sm font-medium">
-                21 July 2023
-              </h2>
-            </div>
+          ))
+        ) : isLoading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <div className="text-center p-4 font-semibold">
+            <h1>No reviews found.</h1>
           </div>
-          <p className="mt-4 pl-2 text-secondinary-300 text-sm leading-6">
-            We are very happy with the service from the MORENT App. Morent has a
-            low price and also a large variety of cars with good and comfortable
-            facilities. In addition, the service provided by the officers is
-            also very friendly and very polite.
-          </p>
-        </div>
-        <div className="mb-8">
-          <div className="flex items-start justify-between">
-            <div className="flex items-start">
-              <img
-                src={ProfileCircle}
-                alt="avatar"
-                className="w-11 h-11 mr-2"
-              />
-              <div>
-                <h1 className="text-secondinary-500 font-semibold text-base mb-1">
-                  Alex Stanton
-                </h1>
-                <h3 className="text-secondinary-300 text-xs fotn">
-                  CEO at Bukalapak
-                </h3>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-secondinary-300 text-sm font-medium">
-                21 July 2023
-              </h2>
-            </div>
-          </div>
-          <p className="mt-4 pl-2 text-secondinary-300 text-sm leading-6">
-            We are very happy with the service from the MORENT App. Morent has a
-            low price and also a large variety of cars with good and comfortable
-            facilities. In addition, the service provided by the officers is
-            also very friendly and very polite.
-          </p>
-        </div>
-        <button className="cursor-pointer mt-9 text-secondinary-700 font-medium w-full text-sm flex items-center justify-center">
-          Show All <img src={ArrowIcon} alt="arrow" className="ml-4" />
-        </button>
+        )}
+
+        {reviews?.data.length! > 2 ? (
+          <button
+            onClick={() => setIsShow((prevState) => !prevState)}
+            className="cursor-pointer mt-9 text-secondinary-700 font-medium w-full text-sm flex items-center justify-center"
+          >
+            Show All{" "}
+            <img
+              src={ArrowIcon}
+              alt="arrow"
+              className={`ml-4 ${isShow && "rotate-180"} duration-300`}
+            />
+          </button>
+        ) : null}
       </div>
     </div>
   );
 };
 
 export default CarReviews;
+
+function Reviews({
+  items,
+}: {
+  items: {
+    id: number;
+    attributes: {
+      name: string;
+      position: string;
+      message: string;
+      createdAt: string;
+    };
+  };
+}) {
+  return (
+    <div className="mb-8" key={items.id}>
+      <div className="flex items-start justify-between">
+        <div className="flex items-start">
+          <img src={ProfileCircle} alt="avatar" className="w-11 h-11 mr-2" />
+          <div>
+            <h1 className="text-secondinary-500 font-semibold text-base mb-1">
+              {items.attributes?.name}
+            </h1>
+            <h3 className="text-secondinary-300 text-xs fotn">
+              {items.attributes?.position}
+            </h3>
+          </div>
+        </div>
+        <div>
+          <h2 className="text-secondinary-300 text-sm font-medium">
+            {extractDate(items.attributes?.createdAt)}
+          </h2>
+        </div>
+      </div>
+      <p className="mt-4 pl-2 text-secondinary-300 text-sm leading-6">
+        {items.attributes?.message}
+      </p>
+    </div>
+  );
+}
