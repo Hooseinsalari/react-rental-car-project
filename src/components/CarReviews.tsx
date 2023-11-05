@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 // svg
 import ProfileCircle from "../assets/svg/profile-circle.svg";
 import ArrowIcon from "../assets/svg/arrow-down.svg";
+import AddReview from "../assets/svg/add.svg";
 
 // interface
 import { DetailsCar } from "../interfaces";
+
+// helper
 import { extractDate } from "../helper/functions";
 
 const CarReviews = ({
   data,
   isLoading,
+  setIsOpen,
 }: {
   data: DetailsCar | undefined;
   isLoading: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { reviews } = data?.data.attributes ?? {};
 
@@ -23,13 +28,23 @@ const CarReviews = ({
 
   return (
     <div className="bg-white py-5 px-4 mt-8 rounded-lg shadow-sm">
-      <div className="flex items-center mb-6">
-        <h1 className="text-xl text-secondinary-500 font-semibold mr-5">
-          Reviews
-        </h1>
-        <h2 className="bg-primary-500 px-5 w-11 h-7 flex items-center justify-center text-white font-bold rounded-md text-sm">
-          {reviews?.data.length}
-        </h2>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center">
+          <h1 className="text-xl text-secondinary-500 font-semibold mr-5">
+            Reviews
+          </h1>
+          <h2 className="bg-primary-500 px-5 w-11 h-7 flex items-center justify-center text-white font-bold rounded-md text-sm">
+            {reviews?.data.length}
+          </h2>
+        </div>
+
+        <button
+          onClick={() => setIsOpen((prevState) => !prevState)}
+          className="flex items-center gap-x-2 text-secondinary-500 font-semibold p-2 rounded-lg opacity-80 hover:opacity-100 duration-200"
+        >
+          Add review
+          <img src={AddReview} alt="add" />
+        </button>
       </div>
 
       <div>

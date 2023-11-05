@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // react router
 import { useParams } from "react-router-dom";
 
@@ -5,6 +7,7 @@ import { useParams } from "react-router-dom";
 import CarInfo from "../components/CarInfo";
 import CarReviews from "../components/CarReviews";
 import PopularCar from "../components/PopularCar";
+import AddReview from "../components/AddReview";
 
 // useQuery
 import { useQuery } from "@tanstack/react-query";
@@ -31,11 +34,15 @@ const DetailCarPage = () => {
     queryFn: () => fetchSingleData(id!),
   });
 
+  // ** state
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="px-6 md:px-16 py-8">
       <CarInfo data={data} isLoading={isLoading} />
-      <CarReviews data={data} isLoading={isLoading} />
+      <CarReviews data={data} isLoading={isLoading} setIsOpen={setIsOpen} />
       <PopularCar />
+      <AddReview isOpen={isOpen} setIsOpen={setIsOpen} id={id} />
     </div>
   );
 };
