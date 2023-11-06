@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "react-loading-skeleton/dist/skeleton.css";
 import "yet-another-react-lightbox/styles.css";
+import "react-widgets/styles.css";
 
 // react query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
