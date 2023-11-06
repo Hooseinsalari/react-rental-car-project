@@ -10,6 +10,7 @@ import { DetailsCar } from "../interfaces";
 
 // helper
 import { extractDate } from "../helper/functions";
+import ReviewsSkeleton from "../skeleton/ReviewsSkeleton";
 
 const CarReviews = ({
   data,
@@ -55,7 +56,7 @@ const CarReviews = ({
             </div>
           ))
         ) : isLoading ? (
-          <h1>Loading...</h1>
+          <ReviewsSkeleton />
         ) : (
           <div className="text-center p-4 font-semibold">
             <h1>No reviews found.</h1>

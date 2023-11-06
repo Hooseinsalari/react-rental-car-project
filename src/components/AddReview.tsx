@@ -34,29 +34,31 @@ type MutateType = {
   position?: string;
   message: string;
   car: number;
+  reviewFor: string;
 };
 
 const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
+  const { userData } = useAuth();
+
   // ** state
   const [inputs, setInputs] = useState<InputsType>({
-    username: "",
+    username: userData.user?.username || "",
     position: "",
     review: "",
   });
-
-  const { userData } = useAuth();
 
   // ** useQuery
   const mutation = useMutation({
     mutationFn: (d: MutateType) =>
       axios.post(
-        "http://localhost:1337/api/reviews",
+        "https://morent-4li1.onrender.com/api/reviews",
         {
           data: {
             name: d.name,
             position: d.position,
             message: d.message,
             car: +d.car,
+            reviewFor: d.reviewFor,
           },
         },
         {
@@ -66,12 +68,15 @@ const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
         }
       ),
     onSuccess() {
-      toast.success(`Your review has been successfully added`, {
-        duration: 10000,
-      });
+      toast.success(
+        `Your review has been submitted and is pending review. Thank you!`,
+        {
+          duration: 10000,
+        }
+      );
     },
     onError(error: any) {
-      console.log(error);
+      toast.error(error.response.data.error.message);
     },
   });
 
@@ -91,6 +96,7 @@ const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
         position: inputs.position,
         message: inputs.review,
         car: +id,
+        reviewFor: id,
       });
       setIsOpen(false);
     }
@@ -151,6 +157,7 @@ const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
                     </label>
                     <input
                       onChange={inputsHandler}
+                      value={inputs.username}
                       placeholder="Your name"
                       className="font-medium rounded-lg focus:ring-0 border-2"
                       id="username"
@@ -164,6 +171,7 @@ const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
                     </label>
                     <input
                       onChange={inputsHandler}
+                      value={inputs.position}
                       placeholder="Your position"
                       className="font-medium rounded-lg focus:ring-0 border-2"
                       id="position"
@@ -177,6 +185,7 @@ const AddReview = ({ isOpen, setIsOpen, id }: AddReviewProps) => {
                     </label>
                     <textarea
                       onChange={inputsHandler}
+                      value={inputs.review}
                       placeholder="Your review"
                       className="font-medium rounded-lg focus:ring-0 border-2"
                       name="review"
