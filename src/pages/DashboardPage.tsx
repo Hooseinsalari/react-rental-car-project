@@ -141,7 +141,10 @@ function DashboardContent() {
           {state.rentedCars.length ? (
             state.rentedCars?.map((car) => {
               return (
-                <div className="flex items-center justify-between my-2 border-b py-2">
+                <div
+                  key={car.id}
+                  className="flex items-center justify-between my-2 border-b py-2"
+                >
                   <div className="flex items-center">
                     <div className="w-20">
                       <img
@@ -195,50 +198,52 @@ function Sidebar() {
       >
         <button
           onClick={() => setIsOpen((prevState) => !prevState)}
-          className={`lg:hidden absolute top-16 -right-12 bg-secondinary-100 p-2 pl-10 -z-10 py-5 rounded-full cursor-pointer ${
+          className={`lg:hidden absolute -z-10 -top-0 -right-12 bg-white border border-l-0 p-2 pl-10 rounded-full cursor-pointer ${
             isOpen && "rounded-half pl-2"
           }`}
         >
           <img className="w-8 h-8" src={Menu} alt="menu" />
         </button>
-        <div className="h-screen overflow-y-auto flex-1 flex flex-col items-start">
-          <div className="w-full">
-            <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
-              MANIN MENU
-            </h1>
-            <ul>
-              {mainMenuItems.map((i) => (
-                <NavLink
-                  to="/dashboard"
-                  key={i.item}
-                  className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
-                >
-                  <img src={i.icon} alt={i.item} className="mr-3" />
-                  <span>{i.item}</span>
-                </NavLink>
-              ))}
-            </ul>
+        <div className="h-screen flex flex-col">
+          <div className="flex-grow overflow-y-auto">
+            <div className="w-full">
+              <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+                MANIN MENU
+              </h1>
+              <ul>
+                {mainMenuItems.map((i) => (
+                  <NavLink
+                    to="/dashboard"
+                    key={i.item}
+                    className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                  >
+                    <img src={i.icon} alt={i.item} className="mr-3" />
+                    <span>{i.item}</span>
+                  </NavLink>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-16 w-full">
+              <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+                PREFERENCES
+              </h1>
+              <ul>
+                {preferencesItems.map((i) => (
+                  <NavLink
+                    to="/dashboard"
+                    key={i.item}
+                    className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                  >
+                    <img src={i.icon} alt={i.item} className="mr-3" />
+                    <span>{i.item}</span>
+                  </NavLink>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-16 w-full">
-            <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
-              PREFERENCES
-            </h1>
-            <ul>
-              {preferencesItems.map((i) => (
-                <NavLink
-                  to="/dashboard"
-                  key={i.item}
-                  className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
-                >
-                  <img src={i.icon} alt={i.item} className="mr-3" />
-                  <span>{i.item}</span>
-                </NavLink>
-              ))}
-            </ul>
-          </div>
-
-          <div className="w-full my-8 mb-8 lg:mb-14 flex-1">
+          <div className="w-full my-8 flex-1">
             <button className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2">
               <img src={Logout} alt="logout" className="mr-3" />
               <span>Logout</span>
