@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContextProvider";
 
 // component
 import Chart from "../components/Chart";
+import DashboardMap from "../components/DashboardMap";
 
 // assets
 import Maps from "../assets/images/Maps.png";
@@ -39,8 +40,11 @@ function DashboardContent() {
         <div className="bg-white rounded-lg p-4 lg:w-1/2">
           <h1 className="text-secondinary-500 font-bold">Detail Rental</h1>
 
-          <div className="my-6 w-full mx-auto">
-            <img src={Maps} alt="map" className="mx-auto" />
+          <div className="my-6 w-full h-[400px] relative mx-auto">
+            <DashboardMap
+              origin={state.rentedCars[lastCar].pickUpDetails?.location}
+              destination={state.rentedCars[lastCar].dropOffDetails?.location}
+            />
           </div>
 
           <div className="flex items-center">
@@ -188,7 +192,7 @@ function DashboardContent() {
 }
 
 function Sidebar() {
-  const {setUserData} = useAuth()
+  const { setUserData } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = () => {
@@ -264,7 +268,7 @@ function Sidebar() {
         </div>
       </div>
       <div
-        className={`lg:hidden w-full absolute top-0 left-0 right-0 bg-[rgba(0,0,0,0.5)] h-full ${
+        className={`lg:hidden z-20 w-full absolute top-0 left-0 right-0 bg-[rgba(0,0,0,0.5)] h-full ${
           isOpen ? "block" : "hidden"
         }`}
       ></div>

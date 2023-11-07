@@ -1,3 +1,5 @@
+import { citiesCoordinates } from "../constant";
+
 function formatDate(selectedDate: Date | null | undefined) {
   const date = new Date(selectedDate!);
 
@@ -54,6 +56,11 @@ function extractDate(dateString: string) {
   return formattedDate;
 }
 
+function findCoordinates(location: string) {
+  const selectedCity = citiesCoordinates.find((i) => i.name === location);
+  return selectedCity;
+}
+
 export {
   formatDate,
   formatTime,
@@ -61,4 +68,5 @@ export {
   isFilled,
   numberOfDays,
   extractDate,
+  findCoordinates,
 };

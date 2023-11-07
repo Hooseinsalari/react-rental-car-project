@@ -82,3 +82,12 @@ input:where(:not([type])):focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #c7c7c7;
 }
+
+/* leaflet */
+.leaflet-top , .leaflet-right {
+  display: none;
+}
+
+.control._container {
+  display: none;
+}
