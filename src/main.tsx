@@ -6,8 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import "yet-another-react-lightbox/styles.css";
 import "react-widgets/styles.css";
-import 'leaflet-routing-machine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 // react query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
