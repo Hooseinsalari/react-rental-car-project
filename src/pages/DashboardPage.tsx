@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 // context
 import { useRentCar } from "../context/RentCarContextProvider";
+import { useAuth } from "../context/AuthContextProvider";
 
 // component
 import Chart from "../components/Chart";
@@ -187,13 +188,19 @@ function DashboardContent() {
 }
 
 function Sidebar() {
+  const {setUserData} = useAuth()
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const logoutHandler = () => {
+    setUserData({ jwt: null, user: null });
+    localStorage.removeItem("authState");
+  };
 
   return (
     <>
       <div className="w-full lg:w-[30%] xl:w-[25%]">
         <div
-          className={`bg-white rounded-br-[5rem] p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
+          className={`bg-white rounded-br-[5rem] lg:rounded-none p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
             isOpen ? "translate-x-0" : "translate-x-[-100%]"
           } transition-transform duration-300 ease-in-out`}
         >
@@ -245,7 +252,10 @@ function Sidebar() {
             </div>
 
             <div className="w-full my-8 flex-1">
-              <button className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2">
+              <button
+                onClick={logoutHandler}
+                className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+              >
                 <img src={Logout} alt="logout" className="mr-3" />
                 <span>Logout</span>
               </button>
