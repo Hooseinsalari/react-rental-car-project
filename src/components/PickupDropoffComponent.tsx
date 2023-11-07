@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 import Calendar from "react-widgets/Calendar";
 import TimeInput from "react-widgets/TimeInput";
 import DropdownList from "react-widgets/DropdownList";
-import Localization from "react-widgets/esm/Localization";
 import { DateLocalizer } from "react-widgets/IntlLocalizer";
 import "react-widgets/styles.css";
+import { Localization } from "react-widgets";
 
 // hooks
 import useOutsideClick from "../hooks/useOutsideClick";
@@ -83,7 +83,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
 
   return (
     <Localization
-      date={new DateLocalizer({ culture: "en-BG", firstOfWeek: 1 })}
+      date={new DateLocalizer({ culture: "en-US", firstOfWeek: 1 })}
     >
       <div className="bg-white p-4 w-full lg:w-1/2 rounded-lg lg:flex-grow">
         <div className="flex items-center">
@@ -158,6 +158,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
                   onChange={(value) =>
                     setPickUp({ ...pickUp, date: formatDate(value) })
                   }
+                  culture="en"
                 />
               </div>
             )}
@@ -217,7 +218,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
 
   return (
     <Localization
-      date={new DateLocalizer({ culture: "en-BG", firstOfWeek: 1 })}
+      date={new DateLocalizer({ culture: "en-US", firstOfWeek: 1 })}
     >
       <div className="bg-white p-4 w-full lg:w-1/2 rounded-lg lg:flex-grow">
         <div className="flex items-center">
@@ -290,6 +291,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
                   onChange={(value) =>
                     setDropOff({ ...dropOff, date: formatDate(value) })
                   }
+                  culture="en"
                 />
               </div>
             )}

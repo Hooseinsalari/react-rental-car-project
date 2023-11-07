@@ -2,7 +2,7 @@ function formatDate(selectedDate: Date | null | undefined) {
   const date = new Date(selectedDate!);
 
   const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "short" });
+  const month = date.toLocaleString("en", { month: "short" });
   const year = date.getFullYear();
 
   return `${day} ${month} ${year}`;
