@@ -190,67 +190,74 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div className="w-full lg:w-[30%] xl:w-[25%]">
-      <div
-        className={`bg-white p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 bottom-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
-          isOpen ? "translate-x-0" : "translate-x-[-100%]"
-        } transition-transform duration-300 ease-in-out`}
-      >
-        <button
-          onClick={() => setIsOpen((prevState) => !prevState)}
-          className={`lg:hidden absolute -z-10 -top-0 -right-12 bg-white border border-l-0 p-2 pl-10 rounded-full cursor-pointer ${
-            isOpen && "rounded-half pl-2"
-          }`}
+    <>
+      <div className="w-full lg:w-[30%] xl:w-[25%]">
+        <div
+          className={`bg-white rounded-br-[5rem] p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
+            isOpen ? "translate-x-0" : "translate-x-[-100%]"
+          } transition-transform duration-300 ease-in-out`}
         >
-          <img className="w-8 h-8" src={Menu} alt="menu" />
-        </button>
-        <div className="h-screen flex flex-col">
-          <div className="flex-grow overflow-y-auto">
-            <div className="w-full">
-              <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
-                MANIN MENU
-              </h1>
-              <ul>
-                {mainMenuItems.map((i) => (
-                  <NavLink
-                    to="/dashboard"
-                    key={i.item}
-                    className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
-                  >
-                    <img src={i.icon} alt={i.item} className="mr-3" />
-                    <span>{i.item}</span>
-                  </NavLink>
-                ))}
-              </ul>
+          <button
+            onClick={() => setIsOpen((prevState) => !prevState)}
+            className={`lg:hidden absolute -z-10 -top-0 -right-12 bg-white border border-l-0 p-2 pl-10 rounded-full cursor-pointer ${
+              isOpen && "rounded-half pl-2"
+            }`}
+          >
+            <img className="w-8 h-8" src={Menu} alt="menu" />
+          </button>
+          <div className="h-screen flex flex-col">
+            <div className="flex-grow overflow-y-auto">
+              <div className="w-full">
+                <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+                  MANIN MENU
+                </h1>
+                <ul>
+                  {mainMenuItems.map((i) => (
+                    <NavLink
+                      to="/dashboard"
+                      key={i.item}
+                      className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                    >
+                      <img src={i.icon} alt={i.item} className="mr-3" />
+                      <span>{i.item}</span>
+                    </NavLink>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-16 w-full">
+                <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
+                  PREFERENCES
+                </h1>
+                <ul>
+                  {preferencesItems.map((i) => (
+                    <NavLink
+                      to="/dashboard"
+                      key={i.item}
+                      className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                    >
+                      <img src={i.icon} alt={i.item} className="mr-3" />
+                      <span>{i.item}</span>
+                    </NavLink>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            <div className="mt-16 w-full">
-              <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
-                PREFERENCES
-              </h1>
-              <ul>
-                {preferencesItems.map((i) => (
-                  <NavLink
-                    to="/dashboard"
-                    key={i.item}
-                    className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
-                  >
-                    <img src={i.icon} alt={i.item} className="mr-3" />
-                    <span>{i.item}</span>
-                  </NavLink>
-                ))}
-              </ul>
+            <div className="w-full my-8 flex-1">
+              <button className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2">
+                <img src={Logout} alt="logout" className="mr-3" />
+                <span>Logout</span>
+              </button>
             </div>
-          </div>
-
-          <div className="w-full my-8 flex-1">
-            <button className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2">
-              <img src={Logout} alt="logout" className="mr-3" />
-              <span>Logout</span>
-            </button>
           </div>
         </div>
       </div>
-    </div>
+      <div
+        className={`lg:hidden w-full absolute top-0 left-0 right-0 bg-[rgba(0,0,0,0.5)] h-full ${
+          isOpen ? "block" : "hidden"
+        }`}
+      ></div>
+    </>
   );
 }
