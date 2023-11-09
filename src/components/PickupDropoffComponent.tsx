@@ -130,7 +130,7 @@ function PickUpComponent({ pickUp, setPickUp }: PickUpComponentProps) {
               </div>
             )}
           </div>
-          <div className="md:ml-5 cursor-pointer relative z-50">
+          <div className="md:ml-5 cursor-pointer relative z-40">
             <h3 className="font-bold text-secondinary-500 lg:text-base">
               Date
             </h3>

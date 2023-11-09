@@ -1,6 +1,9 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Transition } from "@headlessui/react";
+
+// component
+import SearchBarResults from "../SearchBarResults";
 
 // context
 import { useIsShow } from "../../context/ShowFilterContextProvider";
@@ -18,6 +21,7 @@ import NotificationIcon from "../../assets/svg/notification.svg";
 import LoginIcon from "../../assets/svg/login.svg";
 import DashboardIcon from "../../assets/svg/dashboard.svg";
 import LogoutIcon from "../../assets/svg/logout.svg";
+import CleanSearch from "../../assets/svg/close.svg";
 
 const Navbar = () => {
   return (
@@ -51,15 +55,32 @@ export default Navbar;
 
 function SearchBar() {
   const { setIsShow } = useIsShow();
+  const [search, setSearch] = useState<string>("");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setSearch("");
+  }, [pathname]);
 
   return (
     <div className="flex items-center md:mr-auto md:w-1/2 gap-4 md:border md:border-[#C3D4E966] md:rounded-3xl">
-      <div className="flex items-center border border-[#C3D4E966] rounded-[10px] p-3 w-full md:border-none">
+      <div className="relative flex items-center border border-[#C3D4E966] rounded-[10px] p-3 w-full md:border-none">
         <img className="w-6 h-6" src={SearchIcon} alt="search" />
         <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           className="outline-none ml-3 w-full font-medium border-none p-0 focus:ring-0"
           placeholder="Search something here"
         />
+        {search.length >= 1 && (
+          <img
+            className="w-6 h-6 opacity-60 cursor-pointer"
+            onClick={() => setSearch("")}
+            src={CleanSearch}
+            alt="clean"
+          />
+        )}
+        <SearchBarResults search={search} />
       </div>
       <button
         onClick={() => setIsShow((prevState) => !prevState)}
@@ -110,7 +131,7 @@ function Profile() {
     localStorage.removeItem("authState");
     window.location.reload();
   };
-  
+
   return (
     <div className="relative z-50">
       <div
@@ -148,7 +169,10 @@ function Profile() {
         <div className="py-2 px-2">
           <span className="w-full flex items-center duration-200 p-2 rounded-xl hover:bg-slate-200">
             <img src={DashboardIcon} alt="dashboard" className="w-6 h-6 mr-1" />
-            <Link to="/dashboard" className="font-semibold text-secondinary-500 text-sm">
+            <Link
+              to="/dashboard"
+              className="font-semibold text-secondinary-500 text-sm"
+            >
               Dashboard
             </Link>
           </span>

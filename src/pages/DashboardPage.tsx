@@ -198,7 +198,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="w-full lg:w-[30%] xl:w-[25%]">
+      <div className="w-full lg:w-[30%] xl:w-[25%] z-10">
         <div
           className={`bg-white rounded-br-[5rem] lg:rounded-none p-6 pr-1 w-3/4 sm:w-1/2 absolute top-0 left-0 z-30 lg:translate-x-0 lg:sticky lg:w-full ${
             isOpen ? "translate-x-0" : "translate-x-[-100%]"

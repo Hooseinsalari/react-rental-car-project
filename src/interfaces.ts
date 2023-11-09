@@ -266,3 +266,94 @@ export interface RentalInfoProps {
     React.SetStateAction<PickUpDropOffInterface>
   >;
 }
+
+export interface SearchResultsInterface {
+  id: number;
+  attributes: {
+    name: string;
+    type: string;
+    gasoline: number;
+    steering: string;
+    capacity: number;
+    price: number;
+    image: {
+      data: {
+        id: number;
+        attributes: {
+          name: string;
+          formats: {
+            small: {
+              url: string;
+            };
+            thumbnail: {
+              url: string;
+            };
+          };
+          url: string;
+        };
+      };
+    };
+    gallery?: {
+      data: [
+        {
+          id: number;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              medium: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        },
+        {
+          id: 13;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        },
+        {
+          id: 12;
+          attributes: {
+            formats: {
+              small: {
+                url: string;
+              };
+              thumbnail: {
+                url: string;
+              };
+            };
+            url: string;
+          };
+        }
+      ];
+    };
+    reviews?: {
+      data: [
+        {
+          id: number;
+          attributes: {
+            name: string;
+            position: string;
+            message: string;
+            createdAt: string;
+          };
+        }
+      ];
+    };
+  };
+}
