@@ -15,6 +15,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import PaymentPage from "./pages/PaymentPage";
 import DashboardPage from "./pages/DashboardPage";
+import NotFound from "./pages/NotFound";
 
 // helper
 import ScrollToTop from "./helper/ScrollToTop";
@@ -29,6 +30,7 @@ function App() {
     <div className="bg-[#F6F7F9;] min-h-screen">
       <Navbar />
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomePage />} />
         <Route path="vehicles" element={<VehiclesPage />} />
         <Route path="detailCar/:id" element={<DetailCarPage />} />
