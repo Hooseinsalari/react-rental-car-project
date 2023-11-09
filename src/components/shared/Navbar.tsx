@@ -82,12 +82,14 @@ function SearchBar() {
         )}
         <SearchBarResults search={search} />
       </div>
-      <button
-        onClick={() => setIsShow((prevState) => !prevState)}
-        className="border border-[#C3D4E966] rounded-[10px] p-3 md:hidden"
-      >
-        <img className="w-8 h-6 " src={FilterIcon} alt="filter" />
-      </button>
+      {pathname === "/vehicles" && (
+        <button
+          onClick={() => setIsShow((prevState) => !prevState)}
+          className="border border-[#C3D4E966] rounded-[10px] p-3 md:hidden"
+        >
+          <img className="w-8 h-6" src={FilterIcon} alt="filter" />
+        </button>
+      )}
     </div>
   );
 }

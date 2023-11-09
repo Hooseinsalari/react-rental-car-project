@@ -263,7 +263,7 @@ function DropOffComponent({ dropOff, setDropOff }: DropOffComponentProps) {
               </div>
             )}
           </div>
-          <div className="md:ml-5 cursor-pointer relative z-40">
+          <div className="md:ml-5 cursor-pointer relative z-30">
             <h3 className="font-bold text-secondinary-500 lg:text-base">
               Date
             </h3>

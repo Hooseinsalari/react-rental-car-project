@@ -46,7 +46,7 @@ const Footer = () => {
 
       <div className="border-t mt-8 pt-8 flex flex-col-reverse md:flex-row items-center justify-between gap-4">
         <h4 className="text-secondinary-500 text-xs sm:text-sm font-semibold">
-          ©2023 MORENT. All rights reserved to <span className="font-extrabold">Hossein Salari</span>
+          ©2023 MORENT. All rights reserved to <a target="_blank" href="https://github.com/Hooseinsalari" className="font-extrabold">Hossein Salari</a>
         </h4>
         <div className="text-secondinary-500 text-sm font-semibold flex items-center justify-between gap-6">
           <h2>Privacy & Policy</h2>
