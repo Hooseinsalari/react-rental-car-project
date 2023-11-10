@@ -83,7 +83,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex my-32 justify-center min-h-screen px-2">
+    <div className="flex mt-32 justify-center min-h-screen px-2">
       <form
         onSubmit={handleSubmit(handleRegistration)}
         className="bg-white rounded-md h-fit p-4 w-4/5 mx-auto md:w-1/2 md:py-6 md:px-8 shadow-sm"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // context
 import { useIsShow } from "../context/ShowFilterContextProvider";
@@ -12,6 +12,9 @@ import { FilterBarProps } from "../interfaces";
 
 // constant
 import { carCapasity, carTypes } from "../constant";
+
+// hook
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const FilterBar = ({ filterQuery, setFilterQuery }: FilterBarProps) => {
   return (
@@ -33,13 +36,20 @@ export default FilterBar;
 function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
   const { isShow, setIsShow } = useIsShow();
 
+  // ** state
   const [rangeInput, setRangeInput] = useState<number>(filterQuery.price || 50);
   const [isOpen, setIsOpen] = useState<{ first: boolean; second: boolean }>({
     first: true,
     second: false,
   });
 
-  // onChanges
+  // ** refs
+  const filterBarRef = useRef<HTMLDivElement>(null);
+
+  // ** hooks
+  useOutsideClick(filterBarRef, "filterBar", () => setIsShow(false));
+
+  // ** onChanges
   const typeCheckBoxHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, checked } = e.currentTarget;
 
@@ -77,6 +87,8 @@ function MobileFilterBar({ filterQuery, setFilterQuery }: FilterBarProps) {
   return (
     <div className="md:hidden">
       <div
+        ref={filterBarRef}
+        id="filterBar"
         className={`fixed bg-white w-2/3 right-0 top-0 min-h-screen z-50 p-4 duration-500 ease-in-out ${
           isShow ? "translate-x-0" : "translate-x-[1000px]"
         }`}

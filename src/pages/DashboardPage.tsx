@@ -9,7 +9,6 @@ import { useAuth } from "../context/AuthContextProvider";
 import Chart from "../components/Chart";
 
 // assets
-import Maps from "../assets/images/Maps.png";
 import Menu from "../assets/svg/menu.svg";
 import Logout from "../assets/svg/logout2.svg";
 
@@ -39,11 +38,7 @@ function DashboardContent() {
         <div className="bg-white rounded-lg p-4 lg:w-1/2">
           <h1 className="text-secondinary-500 font-bold">Detail Rental</h1>
 
-          <div className="my-6 w-full mx-auto">
-            <img src={Maps} alt="map" className="mx-auto" />
-          </div>
-
-          <div className="flex items-center">
+          <div className="flex items-center my-12">
             <div className="bg-car-bg bg-cover w-1/2 bg-no-repeat rounded-lg lg:w-[40%] sm:w-[30%]">
               <img
                 src={
