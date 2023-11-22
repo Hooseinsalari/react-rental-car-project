@@ -84,7 +84,7 @@ const RegisterPage = () => {
     onSuccess(data) {
       setUserData(data.data);
       toast.success(`Wellcome to morent ${data.data.user.username}`, {
-        duration: 10000,
+        duration: 5000,
       });
       navigate(redirect, { replace: true });
     },
@@ -99,7 +99,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex my-32 justify-center min-h-screen px-2">
+    <div className="flex my-32 justify-center min-h-screen">
       <form
         onSubmit={handleSubmit(handleRegistration)}
         className="bg-white rounded-md h-fit p-4 w-4/5 mx-auto md:w-1/2 md:py-6 md:px-8 shadow-sm"
