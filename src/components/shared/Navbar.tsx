@@ -12,6 +12,9 @@ import { useAuth } from "../../context/AuthContextProvider";
 // hooks
 import useOutsideClick from "../../hooks/useOutsideClick";
 
+// function
+import { truncateString } from "../../helper/functions";
+
 // svg
 import FilterIcon from "../../assets/svg/filter-icon.svg";
 import SearchIcon from "../../assets/svg/search-icon.svg";
@@ -151,7 +154,7 @@ function Profile() {
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
-        className="border border-[#C3D4E966] absolute top-12 right-1 rounded-lg min-w-max bg-white shadow-lg"
+        className="border border-[#C3D4E966] absolute top-12 right-1 rounded-lg min-w-max overflow-hidden bg-white shadow-lg"
         ref={profileRef}
       >
         <div className="flex items-center gap-2 py-2 px-4">
@@ -160,10 +163,10 @@ function Profile() {
           </div>
           <div>
             <h1 className="text-base font-semibold text-secondinary-500">
-              {userData?.user?.username}
+              {truncateString(userData?.user?.username, 15)}
             </h1>
-            <h1 className="text-sm font-medium text-secondinary-400">
-              {userData?.user?.email}
+            <h1 className="xs:text-sm xs:font-medium text-xs font-bold text-secondinary-400">
+              {truncateString(userData?.user?.email, 27)}
             </h1>
           </div>
         </div>
