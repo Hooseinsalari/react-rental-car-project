@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // context
 import { useRentCar } from "../context/RentCarContextProvider";
@@ -16,6 +16,13 @@ import Logout from "../assets/svg/logout2.svg";
 import { mainMenuItems, preferencesItems } from "../constant";
 
 const DashboardPage = () => {
+  const { userData } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    !userData.user && navigate("/");
+  }, []);
+
   return (
     <div className="px-6 py-8 relative lg:static lg:flex lg:flex-row-reverse lg:justify-between lg:p-0 lg:gap-4">
       <DashboardContent />

@@ -43,10 +43,7 @@ function App() {
           element={userData.user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route path="/payment" element={<PaymentPage />} />
-        <Route
-          path="/dashboard"
-          element={userData.user ? <DashboardPage /> : <Navigate to="/" />}
-        />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
       <Footer />
       <Toaster />
